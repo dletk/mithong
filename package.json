@@ -1,0 +1,16 @@
+{
+  "name": "mithong",
+  "version": "1.0.0",
+  "description": "Mithong project for networking and practicing technical interview",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mithong",
+    "nbk",
+    "networking"
+  ],
+  "author": "big44every1",
+  "license": "MIT"
+}
