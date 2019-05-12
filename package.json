@@ -2,7 +2,7 @@
   "name": "mithong",
   "version": "1.0.0",
   "description": "Mithong project for networking and practicing technical interview",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,5 +12,14 @@
     "networking"
   ],
   "author": "big44every1",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "config": "^3.1.0",
+    "debug": "^4.1.1",
+    "express": "^4.16.4",
+    "helmet": "^3.18.0",
+    "joi": "^14.3.1",
+    "mongoose": "^5.5.7",
+    "morgan": "^1.9.1"
+  }
 }
