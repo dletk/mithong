@@ -3,7 +3,7 @@ logs
 *.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
+yarn-error.log* 
 
 # Runtime data
 pids
@@ -35,6 +35,8 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+/.pnp
+.pnp.js
 
 # TypeScript v1 declaration files
 typings/
@@ -53,6 +55,9 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
+
+# misc
+.DS_Store
 
 # dotenv environment variables file
 .env
