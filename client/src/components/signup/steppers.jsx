@@ -8,7 +8,8 @@ import Button from "@material-ui/core/Button";
 import StepContent from "@material-ui/core/StepContent";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import FormBasic from "./forms/formBasic";
+import FormGeneral from "./forms/formGeneral";
+import FormContact from "./forms/formContact";
 import FormAccount from "./forms/formAccount";
 
 const styles = theme => ({
@@ -30,8 +31,10 @@ const styles = theme => ({
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return <FormBasic />;
+      return <FormGeneral />;
     case 1:
+      return <FormContact />;
+    case 2:
       return <FormAccount />;
     default:
       return "Unknown stepIndex";

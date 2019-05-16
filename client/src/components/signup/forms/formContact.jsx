@@ -7,12 +7,9 @@ import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
-import PermIdentity from "@material-ui/icons/PermIdentity";
-import School from "@material-ui/icons/School";
 import Email from "@material-ui/icons/Email";
 import Phone from "@material-ui/icons/Phone";
 import LocationOn from "@material-ui/icons/LocationOn";
-import CalendarToday from "@material-ui/icons/CalendarToday";
 
 const styles = theme => ({
   margin: {
@@ -57,7 +54,7 @@ TextMaskCustom.propTypes = {
   inputRef: PropTypes.func.isRequired
 };
 
-class FormBasic extends Component {
+class FormContact extends Component {
   state = {
     textmask: "(+84)   -   -    "
   };
@@ -74,73 +71,6 @@ class FormBasic extends Component {
 
     return (
       <React.Fragment>
-        <TextField
-          autoFocus
-          className={classes.margin}
-          margin="dense"
-          id="First-name"
-          label="First Name"
-          type="text"
-          fullWidth
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <PermIdentity />
-              </InputAdornment>
-            )
-          }}
-          required
-        />
-        <TextField
-          className={classes.margin}
-          margin="dense"
-          id="Last-name"
-          label="Last Name"
-          type="text"
-          fullWidth
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <PermIdentity />
-              </InputAdornment>
-            )
-          }}
-          required
-        />
-        <TextField
-          className={classes.margin}
-          margin="dense"
-          id="date"
-          label="Day of Birth"
-          type="date"
-          fullWidth
-          InputLabelProps={{
-            shrink: true
-          }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <CalendarToday />
-              </InputAdornment>
-            )
-          }}
-        />
-        <TextField
-          className={classes.margin}
-          margin="dense"
-          id="Class"
-          label="Class (example: TK14)"
-          type="text"
-          fullWidth
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <School />
-              </InputAdornment>
-            )
-          }}
-          required
-        />
         <FormControl className={classes.margin}>
           <InputLabel htmlFor="formatted-text-mask-input input-with-icon-adornment">
             Telephone Number
@@ -193,8 +123,8 @@ class FormBasic extends Component {
   }
 }
 
-FormBasic.propTypes = {
+FormContact.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(FormBasic);
+export default withStyles(styles)(FormContact);
