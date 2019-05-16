@@ -8,26 +8,23 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Steppers from "./steppers";
+import Form from "./form";
 
 const styles = {
   root: {
-    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
     borderRadius: 3,
     border: 0,
     color: "white",
     height: 48,
     padding: "0 30px",
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
+    boxShadow: "0 3px 5px 2px rgba(33, 203, 243, .3)"
   }
 };
 
-class SignUpDialog extends Component {
+class SignInDialog extends Component {
   state = {
-    open: false,
-    steps: ["General", "Contact", "Account"],
-    activeStep: 0,
-    finished: false
+    open: false
   };
 
   handleClickOpen = () => {
@@ -35,31 +32,10 @@ class SignUpDialog extends Component {
   };
 
   handleClose = () => {
-    this.setState({ activeStep: 0, open: false });
-  };
-
-  handleClickNext = () => {
-    this.setState({
-      activeStep: this.state.activeStep + 1,
-      finished: this.state.activeStep === this.state.steps.length - 1
-    });
-  };
-
-  handleClickBack = () => {
-    this.setState({
-      activeStep: this.state.activeStep - 1
-    });
-  };
-
-  handleClickReset = () => {
-    this.setState({
-      activeStep: 0
-    });
+    this.setState({ open: false });
   };
 
   render() {
-    const { open, steps, activeStep, finished } = this.state;
-
     const { classes, className } = this.props;
 
     return (
@@ -68,38 +44,28 @@ class SignUpDialog extends Component {
           className={classNames(classes.root, className)}
           onClick={this.handleClickOpen}
         >
-          Sign up
+          Sign in
         </Button>
         <Dialog
-          open={open}
+          open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Sign up</DialogTitle>
+          <DialogTitle id="form-dialog-title">Sign in</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To sign up to this website, please enter your information here.
+              Welcome to our page!!
               <br />
-              It's free and always will be.
+              Hope you have a great experience~~
             </DialogContentText>
-            <Steppers
-              steps={steps}
-              activeStep={activeStep}
-              onClickNext={this.handleClickNext}
-              onClickBack={this.handleClickBack}
-              onClickReset={this.handleClickReset}
-            />
+            <Form />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button
-              onClick={this.handleClose}
-              color="primary"
-              disabled={!finished}
-            >
-              Submit
+            <Button onClick={this.handleClose} color="primary">
+              Sign in
             </Button>
           </DialogActions>
         </Dialog>
@@ -108,9 +74,9 @@ class SignUpDialog extends Component {
   }
 }
 
-SignUpDialog.propTypes = {
+SignInDialog.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string
 };
 
-export default withStyles(styles)(SignUpDialog);
+export default withStyles(styles)(SignInDialog);
