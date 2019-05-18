@@ -60,6 +60,7 @@ userSchema.methods.foo = function(){
 }
 
 // set user password
+// this function doesn't need to return any value, so I use the asynchronous version of the pbkdf2 to increase its execution speed
 userSchema.methods.setPassword = function(password){
     this.salt = crypto.randomBytes(PASSWORD_SALT_LENGTH).toString('hex');
     // pbkdf2 = Password-Based Key Derivation Function 2
@@ -71,6 +72,18 @@ userSchema.methods.setPassword = function(password){
         this.hash = derivedKey.toString('hex');
         console.log('derived hash value: '+this.hash);
     });
+};
+
+// user password validation
+// this function need to return a boolean value, hence:
+// I use the synchronous version of the pbkdf2 because I don't know how to deal with the async one
+userSchema.methods.validatePassword = function (password, isFinished){
+    correctHash = this.hash;
+    // pbkdf2Sync = synchronous Password-Based Key Derivation Function 2
+    // crypto.pbkdf2Sync(password, salt, iterations, keylen, digest)    
+    givenHash = crypto.pbkdf2Sync(password, this.salt, PBKDF2_ITERATIONS, PBKDF2_KEYLEN, PBKDF2_DIGEST).toString('hex');
+    console.log("Given hash: "+givenHash);
+    return (givenHash == correctHash);
 };
 
 mongoose.model("User", userSchema);
