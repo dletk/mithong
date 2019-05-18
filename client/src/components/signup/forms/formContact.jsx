@@ -12,119 +12,119 @@ import Phone from "@material-ui/icons/Phone";
 import LocationOn from "@material-ui/icons/LocationOn";
 
 const styles = theme => ({
-  margin: {
-    margin: theme.spacing.unit
-  }
+    margin: {
+        margin: theme.spacing.unit
+    }
 });
 
 const TextMaskCustom = ({ inputRef, ...other }) => {
-  return (
-    <MaskedInput
-      {...other}
-      ref={ref => {
-        inputRef(ref ? ref.inputElement : null);
-      }}
-      mask={[
-        "(",
-        "+",
-        /\d/,
-        /\d/,
-        ")",
-        " ",
-        /\d/,
-        /\d/,
-        /\d/,
-        "-",
-        /\d/,
-        /\d/,
-        /\d/,
-        "-",
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/
-      ]}
-      placeholderChar={"\u2000"}
-      showMask
-    />
-  );
+    return (
+        <MaskedInput
+            {...other}
+            ref={ref => {
+                inputRef(ref ? ref.inputElement : null);
+            }}
+            mask={[
+                "(",
+                "+",
+                /\d/,
+                /\d/,
+                ")",
+                " ",
+                /\d/,
+                /\d/,
+                /\d/,
+                "-",
+                /\d/,
+                /\d/,
+                /\d/,
+                "-",
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/
+            ]}
+            placeholderChar={"\u2000"}
+            showMask
+        />
+    );
 };
 
 TextMaskCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired
+    inputRef: PropTypes.func.isRequired
 };
 
 class FormContact extends Component {
-  state = {
-    textmask: "(+84)   -   -    "
-  };
+    state = {
+        textmask: "(+84)   -   -    "
+    };
 
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
-  };
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value
+        });
+    };
 
-  render() {
-    const { classes } = this.props;
-    const { textmask } = this.state;
+    render() {
+        const { classes } = this.props;
+        const { textmask } = this.state;
 
-    return (
-      <React.Fragment>
-        <FormControl className={classes.margin}>
-          <InputLabel htmlFor="formatted-text-mask-input input-with-icon-adornment">
-            Telephone Number
-          </InputLabel>
-          <Input
-            value={textmask}
-            onChange={this.handleChange("textmask")}
-            id="Telephone-number"
-            inputComponent={TextMaskCustom}
-            startAdornment={
-              <InputAdornment position="start">
-                <Phone />
-              </InputAdornment>
-            }
-          />
-        </FormControl>
-        <TextField
-          className={classes.margin}
-          margin="dense"
-          id="Email"
-          label="Email Address"
-          type="email"
-          fullWidth
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Email />
-              </InputAdornment>
-            )
-          }}
-          required
-        />
-        <TextField
-          className={classes.margin}
-          margin="dense"
-          id="Address"
-          label="Address"
-          type="text"
-          fullWidth
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <LocationOn />
-              </InputAdornment>
-            )
-          }}
-        />
-      </React.Fragment>
-    );
-  }
+        return (
+            <React.Fragment>
+                <FormControl className={classes.margin}>
+                    <InputLabel htmlFor="formatted-text-mask-input input-with-icon-adornment">
+                        Telephone Number
+                    </InputLabel>
+                    <Input
+                        value={textmask}
+                        onChange={this.handleChange("textmask")}
+                        id="Telephone-number"
+                        inputComponent={TextMaskCustom}
+                        startAdornment={
+                            <InputAdornment position="start">
+                                <Phone />
+                            </InputAdornment>
+                        }
+                    />
+                </FormControl>
+                <TextField
+                    className={classes.margin}
+                    margin="dense"
+                    id="Email"
+                    label="Email Address"
+                    type="email"
+                    fullWidth
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Email />
+                            </InputAdornment>
+                        )
+                    }}
+                    required
+                />
+                <TextField
+                    className={classes.margin}
+                    margin="dense"
+                    id="Address"
+                    label="Address"
+                    type="text"
+                    fullWidth
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <LocationOn />
+                            </InputAdornment>
+                        )
+                    }}
+                />
+            </React.Fragment>
+        );
+    }
 }
 
 FormContact.propTypes = {
-  classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(FormContact);

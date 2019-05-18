@@ -9,83 +9,86 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const styles = theme => ({
-  margin: {
-    margin: theme.spacing.unit
-  }
+    margin: {
+        margin: theme.spacing.unit
+    }
 });
 
 class Form extends Component {
-  state = {
-    type: "password"
-  };
+    state = {
+        type: "password"
+    };
 
-  visiblePassword = event => {
-    event.preventDefault();
-    event.stopPropagation();
+    visiblePassword = event => {
+        event.preventDefault();
+        event.stopPropagation();
 
-    this.setState({
-      type: this.state.type === "text" ? "password" : "text"
-    });
-  };
+        this.setState({
+            type: this.state.type === "text" ? "password" : "text"
+        });
+    };
 
-  render() {
-    const {
-      classes,
-      username,
-      password,
-      onChangeUsername,
-      onChangePassword
-    } = this.props;
+    render() {
+        const {
+            classes,
+            username,
+            password,
+            onChangeUsername,
+            onChangePassword
+        } = this.props;
 
-    const { type } = this.state;
+        const { type } = this.state;
 
-    return (
-      <React.Fragment>
-        <TextField
-          autoFocus
-          className={classes.margin}
-          margin="dense"
-          id="username"
-          label="Username"
-          type="text"
-          fullWidth
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <AccountCircle />
-              </InputAdornment>
-            )
-          }}
-          value={username}
-          onChange={onChangeUsername}
-        />
-        <TextField
-          className={classes.margin}
-          margin="dense"
-          id="password"
-          label="Password"
-          type={type}
-          fullWidth
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Lock />
-              </InputAdornment>
-            )
-          }}
-          value={password}
-          onChange={onChangePassword}
-        />
-        <span style={{ cursor: "pointer" }} onClick={this.visiblePassword}>
-          {type === "text" ? <Visibility /> : <VisibilityOff />}
-        </span>
-      </React.Fragment>
-    );
-  }
+        return (
+            <React.Fragment>
+                <TextField
+                    autoFocus
+                    className={classes.margin}
+                    margin="dense"
+                    id="username"
+                    label="Username"
+                    type="text"
+                    fullWidth
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <AccountCircle />
+                            </InputAdornment>
+                        )
+                    }}
+                    value={username}
+                    onChange={onChangeUsername}
+                />
+                <TextField
+                    className={classes.margin}
+                    margin="dense"
+                    id="password"
+                    label="Password"
+                    type={type}
+                    fullWidth
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Lock />
+                            </InputAdornment>
+                        )
+                    }}
+                    value={password}
+                    onChange={onChangePassword}
+                />
+                <span
+                    style={{ cursor: "pointer" }}
+                    onClick={this.visiblePassword}
+                >
+                    {type === "text" ? <Visibility /> : <VisibilityOff />}
+                </span>
+            </React.Fragment>
+        );
+    }
 }
 
 Form.propTypes = {
-  classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Form);
