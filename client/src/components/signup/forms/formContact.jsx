@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import MaskedInput from "react-text-mask";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -54,88 +54,80 @@ TextMaskCustom.propTypes = {
     inputRef: PropTypes.func.isRequired
 };
 
-class FormContact extends Component {
-    state = {
-        textmask: "(+84)   -   -    "
-    };
+const FormContact = props => {
+    const {
+        classes,
 
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value
-        });
-    };
+        // User's information
+        phoneNumber,
+        email,
+        address,
 
-    render() {
-        const {
-            classes,
+        // Function to validate
+        onChangePhoneNumber,
+        onChangeEmail,
+        onChangeAddress
+    } = props;
 
-            // User's information
-            email,
-            address,
-
-            // Function to validate
-            onChangeEmail,
-            onChangeAddress
-        } = this.props;
-        const { textmask } = this.state;
-
-        return (
-            <React.Fragment>
-                <FormControl className={classes.margin}>
-                    <InputLabel htmlFor="formatted-text-mask-input input-with-icon-adornment">
-                        Telephone Number
-                    </InputLabel>
-                    <Input
-                        value={textmask}
-                        onChange={this.handleChange("textmask")}
-                        id="Telephone-number"
-                        inputComponent={TextMaskCustom}
-                        startAdornment={
-                            <InputAdornment position="start">
-                                <Phone />
-                            </InputAdornment>
-                        }
-                    />
-                </FormControl>
-                <TextField
-                    className={classes.margin}
-                    margin="dense"
-                    id="Email"
-                    label="Email"
-                    type="email"
-                    fullWidth
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <Email />
-                            </InputAdornment>
-                        )
+    return (
+        <React.Fragment>
+            <FormControl className={classes.margin}>
+                <InputLabel htmlFor="formatted-text-mask-input input-with-icon-adornment">
+                    Telephone Number
+                </InputLabel>
+                <Input
+                    value={phoneNumber}
+                    onChange={onChangePhoneNumber}
+                    inputProps={{
+                        name: "phoneNumber",
+                        id: "Telephone-number"
                     }}
-                    value={email}
-                    onChange={onChangeEmail}
-                    required
+                    inputComponent={TextMaskCustom}
+                    startAdornment={
+                        <InputAdornment position="start">
+                            <Phone />
+                        </InputAdornment>
+                    }
                 />
-                <TextField
-                    className={classes.margin}
-                    margin="dense"
-                    id="Address"
-                    label="Address"
-                    type="text"
-                    fullWidth
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <LocationOn />
-                            </InputAdornment>
-                        )
-                    }}
-                    value={address}
-                    onChange={onChangeAddress}
-                />
-            </React.Fragment>
-        );
-    }
-}
+            </FormControl>
+            <TextField
+                className={classes.margin}
+                margin="dense"
+                id="Email"
+                label="Email"
+                type="email"
+                fullWidth
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <Email />
+                        </InputAdornment>
+                    )
+                }}
+                value={email}
+                onChange={onChangeEmail}
+                required
+            />
+            <TextField
+                className={classes.margin}
+                margin="dense"
+                id="Address"
+                label="Address"
+                type="text"
+                fullWidth
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <LocationOn />
+                        </InputAdornment>
+                    )
+                }}
+                value={address}
+                onChange={onChangeAddress}
+            />
+        </React.Fragment>
+    );
+};
 
 FormContact.propTypes = {
     classes: PropTypes.object.isRequired

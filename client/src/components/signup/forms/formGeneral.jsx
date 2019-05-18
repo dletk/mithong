@@ -21,6 +21,7 @@ const FormGeneral = props => {
         // User's information
         firstName,
         lastName,
+        birthDay,
         gender,
         grade,
 
@@ -31,6 +32,7 @@ const FormGeneral = props => {
         // Function to validate
         onChangeFirstName,
         onChangeLastName,
+        onChangeBirthDay,
         onChangeGender,
         onChangeGrade
     } = props;
@@ -91,6 +93,8 @@ const FormGeneral = props => {
                         </InputAdornment>
                     )
                 }}
+                value={birthDay}
+                onChange={onChangeBirthDay}
             />
             <Gender gender={gender} onChangeGender={onChangeGender} />
             <TextField

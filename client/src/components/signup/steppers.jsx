@@ -34,8 +34,10 @@ class Steppers extends Component {
             // User's information
             firstName,
             lastName,
+            birthDay,
             gender,
             grade,
+            phoneNumber,
             email,
             address,
             username,
@@ -52,8 +54,10 @@ class Steppers extends Component {
             // Function to validate
             onChangeFirstName,
             onChangeLastName,
+            onChangeBirthDay,
             onChangeGender,
             onChangeGrade,
+            onChangePhoneNumber,
             onChangeEmail,
             onChangeAddress,
             onChangeUsername,
@@ -69,12 +73,14 @@ class Steppers extends Component {
                     <FormGeneral
                         firstName={firstName}
                         lastName={lastName}
+                        birthDay={birthDay}
                         gender={gender}
                         grade={grade}
                         gradeValidated={gradeValidated}
                         emailValidated={emailValidated}
                         onChangeFirstName={onChangeFirstName}
                         onChangeLastName={onChangeLastName}
+                        onChangeBirthDay={onChangeBirthDay}
                         onChangeGender={onChangeGender}
                         onChangeGrade={onChangeGrade}
                     />
@@ -82,8 +88,10 @@ class Steppers extends Component {
             case SECOND_STEP:
                 return (
                     <FormContact
+                        phoneNumber={phoneNumber}
                         email={email}
                         address={address}
+                        onChangePhoneNumber={onChangePhoneNumber}
                         onChangeEmail={onChangeEmail}
                         onChangeAddress={onChangeAddress}
                     />

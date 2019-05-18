@@ -22,20 +22,26 @@ const styles = {
     }
 };
 
+const STEPS = ["General", "Contact", "Account"];
+const [FIRST_STEP, LAST_STEP] = [0, STEPS.length - 1];
+const DEFAULT_BIRTH_DAY = "yyyy-MM-dd"; // I don't know why this get warning??
 const MALE = 0;
+const DEFAULT_PHONE_NUMBER = "(+84)   -   -    ";
 
 class SignUpDialog extends Component {
     state = {
         open: false,
-        steps: ["General", "Contact", "Account"],
-        activeStep: 0,
+        steps: STEPS,
+        activeStep: FIRST_STEP,
         finished: false,
 
         // User's information
         firstName: "",
         lastName: "",
+        birthDay: DEFAULT_BIRTH_DAY,
         gender: MALE,
         grade: "",
+        phoneNumber: DEFAULT_PHONE_NUMBER,
         email: "",
         address: "",
         username: "",
@@ -55,13 +61,13 @@ class SignUpDialog extends Component {
     };
 
     handleClose = () => {
-        this.setState({ activeStep: 0, open: false });
+        this.setState({ activeStep: FIRST_STEP, open: false });
     };
 
     handleClickNext = () => {
         this.setState({
             activeStep: this.state.activeStep + 1,
-            finished: this.state.activeStep === this.state.steps.length - 1
+            finished: this.state.activeStep === LAST_STEP
         });
     };
 
@@ -72,9 +78,7 @@ class SignUpDialog extends Component {
     };
 
     handleClickReset = () => {
-        this.setState({
-            activeStep: 0
-        });
+        this.setState({ activeStep: FIRST_STEP });
     };
 
     handleChangeFirstName = event => {
@@ -85,12 +89,20 @@ class SignUpDialog extends Component {
         this.setState({ lastName: event.target.value });
     };
 
+    handleChangeBirthDay = event => {
+        this.setState({ birthDay: event.target.value });
+    };
+
     handleChangeGender = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
 
     handleChangeGrade = event => {
         this.setState({ grade: event.target.value });
+    };
+
+    handleChangePhoneNumber = event => {
+        this.setState({ [event.target.name]: event.target.value });
     };
 
     handleChangeEmail = event => {
@@ -123,8 +135,10 @@ class SignUpDialog extends Component {
             // User's information
             firstName,
             lastName,
+            birthDay,
             gender,
             grade,
+            phoneNumber,
             email,
             address,
             username,
@@ -171,8 +185,10 @@ class SignUpDialog extends Component {
                             // User's information
                             firstName={firstName}
                             lastName={lastName}
+                            birthDay={birthDay}
                             gender={gender}
                             grade={grade}
+                            phoneNumber={phoneNumber}
                             email={email}
                             address={address}
                             username={username}
@@ -187,8 +203,10 @@ class SignUpDialog extends Component {
                             // Handle function to validate
                             onChangeFirstName={this.handleChangeFirstName}
                             onChangeLastName={this.handleChangeLastName}
+                            onChangeBirthDay={this.handleChangeBirthDay}
                             onChangeGender={this.handleChangeGender}
                             onChangeGrade={this.handleChangeGrade}
+                            onChangePhoneNumber={this.handleChangePhoneNumber}
                             onChangeEmail={this.handleChangeEmail}
                             onChangeAddress={this.handleChangeAddress}
                             onChangeUsername={this.hanldeChangeUsername}
