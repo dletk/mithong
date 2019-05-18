@@ -18,9 +18,11 @@ const styles = theme => ({
     }
 });
 
+const [MALE, FEMALE, OTHER] = [0, 1, 2];
+
 class Gender extends React.Component {
     state = {
-        gender: 0,
+        gender: MALE,
         open: false
     };
 
@@ -53,13 +55,13 @@ class Gender extends React.Component {
                         id: "controlled-open-select"
                     }}
                 >
-                    <MenuItem value={0}>
+                    <MenuItem value={MALE}>
                         <em>Male</em>
                     </MenuItem>
-                    <MenuItem value={1}>
+                    <MenuItem value={FEMALE}>
                         <em>Female</em>
                     </MenuItem>
-                    <MenuItem value={2}>
+                    <MenuItem value={OTHER}>
                         <em>Other</em>
                     </MenuItem>
                 </Select>

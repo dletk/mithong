@@ -29,12 +29,14 @@ const styles = theme => ({
 });
 
 function getStepContent(stepIndex) {
+    const [FIRST_STEP, SECOND_STEP, THIRD_STEP] = [0, 1, 2];
+
     switch (stepIndex) {
-        case 0:
+        case FIRST_STEP:
             return <FormGeneral />;
-        case 1:
+        case SECOND_STEP:
             return <FormContact />;
-        case 2:
+        case THIRD_STEP:
             return <FormAccount />;
         default:
             return "Unknown stepIndex";
@@ -51,6 +53,9 @@ const Steppers = props => {
         onClickReset
     } = props;
 
+    const [FIRST_STEP, LAST_STEP] = [0, steps.length - 1];
+    const PAPER_HEIGHT = 1;
+
     return (
         <div className={classes.root}>
             <Stepper activeStep={activeStep} orientation="vertical">
@@ -62,7 +67,7 @@ const Steppers = props => {
                             <div className={classes.actionsContainer}>
                                 <div>
                                     <Button
-                                        disabled={activeStep === 0}
+                                        disabled={activeStep === FIRST_STEP}
                                         onClick={onClickBack}
                                         className={classes.button}
                                     >
@@ -74,7 +79,7 @@ const Steppers = props => {
                                         onClick={onClickNext}
                                         className={classes.button}
                                     >
-                                        {activeStep === steps.length - 1
+                                        {activeStep === LAST_STEP
                                             ? "Finish"
                                             : "Next"}
                                     </Button>
@@ -85,9 +90,13 @@ const Steppers = props => {
                 ))}
             </Stepper>
             {activeStep === steps.length && (
-                <Paper square elevation={0} className={classes.resetContainer}>
+                <Paper
+                    square
+                    elevation={PAPER_HEIGHT}
+                    className={classes.resetContainer}
+                >
                     <Typography>
-                        All steps completed - you&apos;re finished
+                        All steps completed - You can submit your profile
                     </Typography>
                     <Button onClick={onClickReset} className={classes.button}>
                         Reset
