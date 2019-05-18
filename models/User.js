@@ -1,10 +1,14 @@
 // User model
 
+// constants
+const PASSWORD_SALT_LENGTH = 32;
+
 // Load mongoose 
 const mongoose = require("mongoose");
+const crypto = require("crypto");
 
-// I don't know why this works
-var Schema = mongoose.Schema;
+// dletk realized his mistake and told me to fix like this
+const { Schema } = mongoose;
 
 const userSchema = new Schema({
     username: { 
@@ -46,6 +50,25 @@ const userSchema = new Schema({
     // Status option
     isOnline: Boolean,
 });
+
+// for debugging
+userSchema.methods.foo = function(){
+    console.log("qwerty");
+}
+
+// set user password
+userSchema.methods.setPassword = function(password){
+    this.salt = crypto.randomBytes(PASSWORD_SALT_LENGTH).toString('hex');
+    // pbkdf2 = Password-Based Key Derivation Function 2
+    // crypto.pbkdf2(password, salt, iterations, keylen, digest, callback)
+    crypto.pbkdf2(password, this.salt, 10000, 512, 'sha512', (err, derivedKey) => {
+        if(err) throw err;
+        // derivedKey is in Buffer form
+        // toString('hex'): convert derivedKey to hex
+        this.hash = derivedKey.toString('hex');
+        console.log('derived hash value: '+this.hash);
+    });
+};
 
 mongoose.model("User", userSchema);
 
