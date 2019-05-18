@@ -2,7 +2,9 @@
 
 // Load mongoose 
 const mongoose = require("mongoose");
-const { Schema } = mongoose.Schema;
+
+// I don't know why this works
+var Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     username: { 
