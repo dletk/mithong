@@ -22,12 +22,7 @@ const [MALE, FEMALE, OTHER] = [0, 1, 2];
 
 class Gender extends React.Component {
     state = {
-        gender: MALE,
         open: false
-    };
-
-    handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
     };
 
     handleClose = () => {
@@ -39,17 +34,19 @@ class Gender extends React.Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const { open } = this.state;
+
+        const { classes, gender, onChangeGender } = this.props;
 
         return (
             <FormControl className={classes.formControl} required>
                 <InputLabel htmlFor="controlled-open-select">Gender</InputLabel>
                 <Select
-                    open={this.state.open}
+                    open={open}
                     onClose={this.handleClose}
                     onOpen={this.handleOpen}
-                    value={this.state.gender}
-                    onChange={this.handleChange}
+                    value={gender}
+                    onChange={onChangeGender}
                     inputProps={{
                         name: "gender",
                         id: "controlled-open-select"

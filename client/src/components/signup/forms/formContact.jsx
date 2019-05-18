@@ -66,7 +66,17 @@ class FormContact extends Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const {
+            classes,
+
+            // User's information
+            email,
+            address,
+
+            // Function to validate
+            onChangeEmail,
+            onChangeAddress
+        } = this.props;
         const { textmask } = this.state;
 
         return (
@@ -91,7 +101,7 @@ class FormContact extends Component {
                     className={classes.margin}
                     margin="dense"
                     id="Email"
-                    label="Email Address"
+                    label="Email"
                     type="email"
                     fullWidth
                     InputProps={{
@@ -101,6 +111,8 @@ class FormContact extends Component {
                             </InputAdornment>
                         )
                     }}
+                    value={email}
+                    onChange={onChangeEmail}
                     required
                 />
                 <TextField
@@ -117,6 +129,8 @@ class FormContact extends Component {
                             </InputAdornment>
                         )
                     }}
+                    value={address}
+                    onChange={onChangeAddress}
                 />
             </React.Fragment>
         );

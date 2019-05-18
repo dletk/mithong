@@ -12,7 +12,26 @@ const styles = theme => ({
     }
 });
 
-const FormAccount = ({ classes }) => {
+const FormAccount = props => {
+    const {
+        classes,
+
+        // User's information
+        username,
+        password,
+        retypePassword,
+
+        // Validation for acount form
+        // usernameValidated,
+        // passwordValidated,
+        // retypePasswordValidated,
+
+        // Function to validate
+        onChangeUsername,
+        onChangePassword,
+        onChangeRetypePassword
+    } = props;
+
     return (
         <React.Fragment>
             <TextField
@@ -30,6 +49,8 @@ const FormAccount = ({ classes }) => {
                         </InputAdornment>
                     )
                 }}
+                value={username}
+                onChange={onChangeUsername}
                 required
             />
             <TextField
@@ -46,6 +67,8 @@ const FormAccount = ({ classes }) => {
                         </InputAdornment>
                     )
                 }}
+                value={password}
+                onChange={onChangePassword}
                 required
             />
             <TextField
@@ -62,6 +85,8 @@ const FormAccount = ({ classes }) => {
                         </InputAdornment>
                     )
                 }}
+                value={retypePassword}
+                onChange={onChangeRetypePassword}
                 required
             />
         </React.Fragment>

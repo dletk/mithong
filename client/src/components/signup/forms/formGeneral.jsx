@@ -14,7 +14,27 @@ const styles = theme => ({
     }
 });
 
-const FormGeneral = ({ classes }) => {
+const FormGeneral = props => {
+    const {
+        classes,
+
+        // User's information
+        firstName,
+        lastName,
+        gender,
+        grade,
+
+        // Validation for general form
+        // gradeValidated,
+        // emailValidated,
+
+        // Function to validate
+        onChangeFirstName,
+        onChangeLastName,
+        onChangeGender,
+        onChangeGrade
+    } = props;
+
     return (
         <React.Fragment>
             <TextField
@@ -32,6 +52,8 @@ const FormGeneral = ({ classes }) => {
                         </InputAdornment>
                     )
                 }}
+                value={firstName}
+                onChange={onChangeFirstName}
                 required
             />
             <TextField
@@ -48,6 +70,8 @@ const FormGeneral = ({ classes }) => {
                         </InputAdornment>
                     )
                 }}
+                value={lastName}
+                onChange={onChangeLastName}
                 required
             />
             <TextField
@@ -68,12 +92,12 @@ const FormGeneral = ({ classes }) => {
                     )
                 }}
             />
-            <Gender />
+            <Gender gender={gender} onChangeGender={onChangeGender} />
             <TextField
                 className={classes.margin}
                 margin="dense"
-                id="Class"
-                label="Class (example: TK14)"
+                id="Grade"
+                label="Grade (example: TK14)"
                 type="text"
                 fullWidth
                 InputProps={{
@@ -83,6 +107,8 @@ const FormGeneral = ({ classes }) => {
                         </InputAdornment>
                     )
                 }}
+                value={grade}
+                onChange={onChangeGrade}
                 required
             />
         </React.Fragment>

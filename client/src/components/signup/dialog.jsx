@@ -22,12 +22,32 @@ const styles = {
     }
 };
 
+const MALE = 0;
+
 class SignUpDialog extends Component {
     state = {
         open: false,
         steps: ["General", "Contact", "Account"],
         activeStep: 0,
-        finished: false
+        finished: false,
+
+        // User's information
+        firstName: "",
+        lastName: "",
+        gender: MALE,
+        grade: "",
+        email: "",
+        address: "",
+        username: "",
+        password: "",
+        retypePassword: "",
+
+        // Validation for sign up form
+        gradeValidated: false,
+        emailValidated: false,
+        usernameValidated: false,
+        passwordValidated: false,
+        retypePasswordValidated: false
     };
 
     handleClickOpen = () => {
@@ -57,8 +77,67 @@ class SignUpDialog extends Component {
         });
     };
 
+    handleChangeFirstName = event => {
+        this.setState({ firstName: event.target.value });
+    };
+
+    handleChangeLastName = event => {
+        this.setState({ lastName: event.target.value });
+    };
+
+    handleChangeGender = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
+
+    handleChangeGrade = event => {
+        this.setState({ grade: event.target.value });
+    };
+
+    handleChangeEmail = event => {
+        this.setState({ email: event.target.value });
+    };
+
+    handleChangeAddress = event => {
+        this.setState({ address: event.target.value });
+    };
+
+    hanldeChangeUsername = event => {
+        this.setState({ username: event.target.value });
+    };
+
+    handleChangePassword = event => {
+        this.setState({ password: event.target.value });
+    };
+
+    handleChangeRetypePassword = event => {
+        this.setState({ retypePassword: event.target.value });
+    };
+
     render() {
-        const { open, steps, activeStep, finished } = this.state;
+        const {
+            open,
+            steps,
+            activeStep,
+            finished,
+
+            // User's information
+            firstName,
+            lastName,
+            gender,
+            grade,
+            email,
+            address,
+            username,
+            password,
+            retypePassword,
+
+            // Validation for sign up form
+            classValidated,
+            emailValidated,
+            usernameValidated,
+            passwordValidated,
+            retypePasswordValidated
+        } = this.state;
 
         const { classes, className } = this.props;
 
@@ -89,6 +168,34 @@ class SignUpDialog extends Component {
                             onClickNext={this.handleClickNext}
                             onClickBack={this.handleClickBack}
                             onClickReset={this.handleClickReset}
+                            // User's information
+                            firstName={firstName}
+                            lastName={lastName}
+                            gender={gender}
+                            grade={grade}
+                            email={email}
+                            address={address}
+                            username={username}
+                            password={password}
+                            retypePassword={retypePassword}
+                            // Validation for sign up form
+                            classValidated={classValidated}
+                            emailValidated={emailValidated}
+                            usernameValidated={usernameValidated}
+                            passwordValidated={passwordValidated}
+                            retypePasswordValidated={retypePasswordValidated}
+                            // Handle function to validate
+                            onChangeFirstName={this.handleChangeFirstName}
+                            onChangeLastName={this.handleChangeLastName}
+                            onChangeGender={this.handleChangeGender}
+                            onChangeGrade={this.handleChangeGrade}
+                            onChangeEmail={this.handleChangeEmail}
+                            onChangeAddress={this.handleChangeAddress}
+                            onChangeUsername={this.hanldeChangeUsername}
+                            onChangePassword={this.handleChangePassword}
+                            onChangeRetypePassword={
+                                this.handleChangeRetypePassword
+                            }
                         />
                     </DialogContent>
                     <DialogActions>
