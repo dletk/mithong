@@ -12,7 +12,15 @@ const styles = theme => ({
   }
 });
 
-const Form = ({ classes }) => {
+const Form = props => {
+  const {
+    classes,
+    username,
+    password,
+    onChangeUsername,
+    onChangePassword
+  } = props;
+
   return (
     <React.Fragment>
       <TextField
@@ -30,7 +38,9 @@ const Form = ({ classes }) => {
             </InputAdornment>
           )
         }}
-        required
+        value={username}
+        onChange={onChangeUsername}
+        // required
       />
       <TextField
         className={classes.margin}
@@ -46,7 +56,9 @@ const Form = ({ classes }) => {
             </InputAdornment>
           )
         }}
-        required
+        value={password}
+        onChange={onChangePassword}
+        // required
       />
     </React.Fragment>
   );

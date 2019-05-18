@@ -24,7 +24,11 @@ const styles = {
 
 class SignInDialog extends Component {
   state = {
-    open: false
+    open: false,
+    username: "",
+    password: "",
+    isValidated: false,
+    submitFailed: false
   };
 
   handleClickOpen = () => {
@@ -35,8 +39,46 @@ class SignInDialog extends Component {
     this.setState({ open: false });
   };
 
+  handleChangeUsername = event => {
+    this.setState({
+      username: event.target.value
+    });
+  };
+
+  handleChangePassword = event => {
+    this.setState({
+      password: event.target.value
+    });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault(); // Do not reload page after submit
+
+    this.setState(
+      {
+        isValidated:
+          this.state.username.length !== 0 && this.state.password.length !== 0
+      },
+      function() {
+        if (this.state.isValidated) {
+          // this.props.Submit();
+          this.setState({
+            open: false,
+            username: "",
+            password: ""
+          });
+        } else {
+          this.setState({
+            submitFailed: true
+          });
+        }
+      }
+    );
+  };
+
   render() {
     const { classes, className } = this.props;
+    const { open, username, password, isValidated, submitFailed } = this.state;
 
     return (
       <div>
@@ -47,26 +89,38 @@ class SignInDialog extends Component {
           Sign in
         </Button>
         <Dialog
-          open={this.state.open}
+          open={open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Sign in</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Welcome to our page!!
+              Welcome to our website!!
               <br />
               Hope you have a great experience~~
             </DialogContentText>
-            <Form />
+            <Form
+              username={username}
+              password={password}
+              onChangeUsername={this.handleChangeUsername}
+              onChangePassword={this.handleChangePassword}
+            />
+            {!isValidated && submitFailed && (
+              <span style={{ color: "red" }}>
+                <em>Username or password is incorrect!</em>
+              </span>
+            )}
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClose} color="primary">
-              Sign in
-            </Button>
+            <form onSubmit={this.handleSubmit}>
+              <Button type="submit" color="primary">
+                Sign in
+              </Button>
+            </form>
           </DialogActions>
         </Dialog>
       </div>
