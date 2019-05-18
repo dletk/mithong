@@ -27,7 +27,9 @@ class SignInDialog extends Component {
         open: false,
         username: "",
         password: "",
-        isValidated: false,
+        usernameValidated: false,
+        passwordValidated: false,
+        formValidated: false,
         submitFailed: false
     };
 
@@ -40,15 +42,52 @@ class SignInDialog extends Component {
     };
 
     handleChangeUsername = event => {
-        this.setState({
-            username: event.target.value
-        });
+        const [MIN_LENGTH_USERNAME, MAX_LENGTH_USERNAME] = [3, 25];
+
+        this.setState(
+            {
+                username: event.target.value
+            },
+            function() {
+                const { username } = this.state;
+
+                let usernameValidated =
+                    username.length >= MIN_LENGTH_USERNAME &&
+                    username.length <= MAX_LENGTH_USERNAME;
+
+                // Username cannot contain spaces
+                usernameValidated &= !(username.indexOf(" ") > -1);
+
+                this.setState({ usernameValidated });
+            }
+        );
     };
 
     handleChangePassword = event => {
-        this.setState({
-            password: event.target.value
-        });
+        const MIN_LENGTH_PASSWORD = 8;
+
+        this.setState(
+            {
+                password: event.target.value
+            },
+            function() {
+                const { password } = this.state;
+
+                let passwordValidated = password.length >= MIN_LENGTH_PASSWORD;
+
+                // Password cannot contain spaces
+                passwordValidated &= !(password.indexOf(" ") > -1);
+
+                // Password must contain at least one uppercase letter,
+                // one lowercase letter and one number
+                passwordValidated &=
+                    /[A-Z]/.test(password) &&
+                    /[a-z]/.test(password) &&
+                    /[0-9]/.test(password);
+
+                this.setState({ passwordValidated });
+            }
+        );
     };
 
     handleSubmit = event => {
@@ -56,12 +95,11 @@ class SignInDialog extends Component {
 
         this.setState(
             {
-                isValidated:
-                    this.state.username.length !== 0 &&
-                    this.state.password.length !== 0
+                formValidated:
+                    this.state.usernameValidated && this.state.passwordValidated
             },
             function() {
-                if (this.state.isValidated) {
+                if (this.state.formValidated) {
                     // this.props.Submit();
                     this.setState({
                         open: false,
@@ -83,7 +121,7 @@ class SignInDialog extends Component {
             open,
             username,
             password,
-            isValidated,
+            formValidated,
             submitFailed
         } = this.state;
 
@@ -113,7 +151,7 @@ class SignInDialog extends Component {
                             onChangeUsername={this.handleChangeUsername}
                             onChangePassword={this.handleChangePassword}
                         />
-                        {!isValidated && submitFailed && (
+                        {!formValidated && submitFailed && (
                             <span style={{ color: "red" }}>
                                 <em>Username or password is incorrect!</em>
                             </span>
