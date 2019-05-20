@@ -4,9 +4,10 @@ import { withStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
 import PermIdentity from "@material-ui/icons/PermIdentity";
-import School from "@material-ui/icons/School";
 import CalendarToday from "@material-ui/icons/CalendarToday";
 import Gender from "./Selects/gender";
+import Khoi from "./Selects/khoi";
+import Khoa from "./Selects/khoa";
 
 const styles = theme => ({
     margin: {
@@ -28,25 +29,25 @@ const FormGeneral = props => {
         lastName,
         birthDay,
         gender,
-        grade,
+        khoi,
+        khoa,
 
         // Validation for general form
         firstNameValidated,
         lastNameValidated,
-        gradeValidated,
 
         // Function to validate
         onChangeFirstName,
         onChangeLastName,
         onChangeBirthDay,
         onChangeGender,
-        onChangeGrade
+        onChangeKhoi,
+        onChangeKhoa
     } = props;
 
     const firstNameLabel = "Họ *";
     const lastNameLabel = "Tên *";
     const birthDayLabel = "Ngày sinh";
-    const gradeLabel = "Lớp (ví dụ: TK14) *";
 
     return (
         <React.Fragment>
@@ -116,28 +117,9 @@ const FormGeneral = props => {
                 onChange={onChangeBirthDay}
             />
             <Gender gender={gender} onChangeGender={onChangeGender} />
-            <TextField
-                className={classes.margin}
-                margin="dense"
-                id="Grade"
-                label={gradeLabel}
-                type="text"
-                fullWidth
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <School />
-                        </InputAdornment>
-                    )
-                }}
-                value={grade}
-                onChange={onChangeGrade}
-            />
-            {clickedNext && !gradeValidated && (
-                <span className="error-message" align="center">
-                    <em>Invalid grade</em>
-                </span>
-            )}
+            <br />
+            <Khoi khoi={khoi} onChangeKhoi={onChangeKhoi} />
+            <Khoa khoa={khoa} onChangeKhoa={onChangeKhoa} />
         </React.Fragment>
     );
 };

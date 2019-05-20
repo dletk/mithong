@@ -99,7 +99,8 @@ class SignUpDialog extends Component {
             lastName,
             birthDay,
             gender,
-            grade,
+            khoi,
+            khoa,
             phoneNumber,
             email,
             address,
@@ -110,7 +111,6 @@ class SignUpDialog extends Component {
             // Validation for sign up form
             firstNameValidated,
             lastNameValidated,
-            gradeValidated,
             emailValidated,
             usernameValidated,
             passwordValidated,
@@ -121,7 +121,8 @@ class SignUpDialog extends Component {
             onChangeLastName,
             onChangeBirthDay,
             onChangeGender,
-            onChangeGrade,
+            onChangeKhoi,
+            onChangeKhoa,
             onChangePhoneNumber,
             onChangeEmail,
             onChangeAddress,
@@ -164,7 +165,8 @@ class SignUpDialog extends Component {
                             lastName={lastName}
                             birthDay={birthDay}
                             gender={gender}
-                            grade={grade}
+                            khoi={khoi}
+                            khoa={khoa}
                             phoneNumber={phoneNumber}
                             email={email}
                             address={address}
@@ -174,7 +176,6 @@ class SignUpDialog extends Component {
                             // Validation for sign up form
                             firstNameValidated={firstNameValidated}
                             lastNameValidated={lastNameValidated}
-                            gradeValidated={gradeValidated}
                             emailValidated={emailValidated}
                             usernameValidated={usernameValidated}
                             passwordValidated={passwordValidated}
@@ -184,7 +185,8 @@ class SignUpDialog extends Component {
                             onChangeLastName={onChangeLastName}
                             onChangeBirthDay={onChangeBirthDay}
                             onChangeGender={onChangeGender}
-                            onChangeGrade={onChangeGrade}
+                            onChangeKhoi={onChangeKhoi}
+                            onChangeKhoa={onChangeKhoa}
                             onChangePhoneNumber={onChangePhoneNumber}
                             onChangeEmail={onChangeEmail}
                             onChangeAddress={onChangeAddress}

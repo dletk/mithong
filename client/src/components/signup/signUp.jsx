@@ -9,6 +9,8 @@ const YYYY = String(TODAY.getFullYear());
 const DEFAULT_BIRTH_DAY = YYYY + "-" + MM + "-" + DD;
 
 const MALE = 0;
+const MATH = 0;
+const KHOA_1 = 0;
 const DEFAULT_PHONE_NUMBER = "(+84)   -   -    ";
 
 class SignUp extends Component {
@@ -18,7 +20,8 @@ class SignUp extends Component {
         lastName: "",
         birthDay: DEFAULT_BIRTH_DAY,
         gender: MALE,
-        grade: "",
+        khoi: MATH,
+        khoa: KHOA_1,
         phoneNumber: DEFAULT_PHONE_NUMBER,
         email: "",
         address: "",
@@ -29,7 +32,6 @@ class SignUp extends Component {
         // Validation for sign up form
         firstNameValidated: false,
         lastNameValidated: false,
-        gradeValidated: false,
         emailValidated: false,
         usernameValidated: false,
         passwordValidated: false,
@@ -67,12 +69,12 @@ class SignUp extends Component {
         this.setState({ [event.target.name]: event.target.value });
     };
 
-    handleChangeGrade = event => {
-        this.setState({ grade: event.target.value }, function() {
-            this.setState({
-                gradeValidated: this.state.grade.length !== 0
-            });
-        });
+    handleChangeKhoi = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
+
+    handleChangeKhoa = event => {
+        this.setState({ [event.target.name]: event.target.value });
     };
 
     handleChangePhoneNumber = event => {
@@ -157,7 +159,8 @@ class SignUp extends Component {
             lastName: "",
             birthDay: DEFAULT_BIRTH_DAY,
             gender: MALE,
-            grade: "",
+            khoi: MATH,
+            khoa: KHOA_1,
             phoneNumber: DEFAULT_PHONE_NUMBER,
             email: "",
             address: "",
@@ -168,7 +171,6 @@ class SignUp extends Component {
             // Validation for sign up form
             firstNameValidated: false,
             lastNameValidated: false,
-            gradeValidated: false,
             emailValidated: false,
             usernameValidated: false,
             passwordValidated: false,
@@ -183,7 +185,8 @@ class SignUp extends Component {
             lastName,
             birthDay,
             gender,
-            grade,
+            khoi,
+            khoa,
             phoneNumber,
             email,
             address,
@@ -194,7 +197,6 @@ class SignUp extends Component {
             // Validation for sign up form
             firstNameValidated,
             lastNameValidated,
-            gradeValidated,
             emailValidated,
             usernameValidated,
             passwordValidated,
@@ -202,7 +204,7 @@ class SignUp extends Component {
         } = this.state;
 
         const stepValidated = [
-            firstNameValidated && lastNameValidated && gradeValidated, // First step
+            firstNameValidated && lastNameValidated, // First step
             emailValidated, // Second step
             usernameValidated && passwordValidated && retypePasswordValidated // Third step
         ];
@@ -214,7 +216,8 @@ class SignUp extends Component {
                 lastName={lastName}
                 birthDay={birthDay}
                 gender={gender}
-                grade={grade}
+                khoi={khoi}
+                khoa={khoa}
                 phoneNumber={phoneNumber}
                 email={email}
                 address={address}
@@ -224,7 +227,6 @@ class SignUp extends Component {
                 // Validation for sign up form
                 firstNameValidated={firstNameValidated}
                 lastNameValidated={lastNameValidated}
-                gradeValidated={gradeValidated}
                 emailValidated={emailValidated}
                 usernameValidated={usernameValidated}
                 passwordValidated={passwordValidated}
@@ -236,7 +238,8 @@ class SignUp extends Component {
                 onChangeLastName={this.handleChangeLastName}
                 onChangeBirthDay={this.handleChangeBirthDay}
                 onChangeGender={this.handleChangeGender}
-                onChangeGrade={this.handleChangeGrade}
+                onChangeKhoi={this.handleChangeKhoi}
+                onChangeKhoa={this.handleChangeKhoa}
                 onChangePhoneNumber={this.handleChangePhoneNumber}
                 onChangeEmail={this.handleChangeEmail}
                 onChangeAddress={this.handleChangeAddress}

@@ -39,7 +39,8 @@ class Steppers extends Component {
             lastName,
             birthDay,
             gender,
-            grade,
+            khoi,
+            khoa,
             phoneNumber,
             email,
             address,
@@ -50,7 +51,6 @@ class Steppers extends Component {
             // Validation for sign up form
             firstNameValidated,
             lastNameValidated,
-            gradeValidated,
             emailValidated,
             usernameValidated,
             passwordValidated,
@@ -61,7 +61,8 @@ class Steppers extends Component {
             onChangeLastName,
             onChangeBirthDay,
             onChangeGender,
-            onChangeGrade,
+            onChangeKhoi,
+            onChangeKhoa,
             onChangePhoneNumber,
             onChangeEmail,
             onChangeAddress,
@@ -81,15 +82,16 @@ class Steppers extends Component {
                         lastName={lastName}
                         birthDay={birthDay}
                         gender={gender}
-                        grade={grade}
+                        khoi={khoi}
+                        khoa={khoa}
                         firstNameValidated={firstNameValidated}
                         lastNameValidated={lastNameValidated}
-                        gradeValidated={gradeValidated}
                         onChangeFirstName={onChangeFirstName}
                         onChangeLastName={onChangeLastName}
                         onChangeBirthDay={onChangeBirthDay}
                         onChangeGender={onChangeGender}
-                        onChangeGrade={onChangeGrade}
+                        onChangeKhoi={onChangeKhoi}
+                        onChangeKhoa={onChangeKhoa}
                     />
                 );
             case SECOND_STEP:
