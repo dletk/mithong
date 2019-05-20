@@ -62,9 +62,14 @@ const FormAccount = props => {
                 value={username}
                 onChange={onChangeUsername}
             />
+            <small>
+                Tên đăng nhập phải có ít nhất 3 kí tự, nhiều nhất 25 kí tự và
+                không chứa dấu cách
+            </small>
             {clickedNext && !usernameValidated && (
                 <span className="error-message" align="center">
-                    <em>Invalid username. </em>
+                    <br />
+                    <em>Tên đăng nhập không hợp lệ</em>
                 </span>
             )}
             <TextField
@@ -90,7 +95,7 @@ const FormAccount = props => {
             {clickedNext && !passwordValidated && (
                 <span className="error-message" align="center">
                     <br />
-                    <em>Invalid password!</em>
+                    <em>Mật khẩu không hợp lệ</em>
                 </span>
             )}
             <TextField
@@ -112,7 +117,7 @@ const FormAccount = props => {
             />
             {clickedNext && !retypePasswordValidated && (
                 <span className="error-message" align="center">
-                    <em>This is not match to password</em>
+                    <em>Không khớp với mật khẩu được nhập phía trên!</em>
                 </span>
             )}
         </React.Fragment>

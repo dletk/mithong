@@ -71,7 +71,7 @@ const FormGeneral = props => {
             />
             {clickedNext && !firstNameValidated && (
                 <span className="error-message" align="center">
-                    <em>Invalid first name</em>
+                    <em>Họ không hợp lệ</em>
                 </span>
             )}
             <TextField
@@ -93,7 +93,7 @@ const FormGeneral = props => {
             />
             {clickedNext && !lastNameValidated && (
                 <span className="error-message" align="center">
-                    <em>Invalid last name</em>
+                    <em>Tên không hợp lệ</em>
                 </span>
             )}
             <TextField

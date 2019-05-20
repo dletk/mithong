@@ -122,7 +122,7 @@ const FormContact = props => {
             />
             {clickedNext && !emailValidated && (
                 <span className="error-message" align="center">
-                    <em>Invalid email address</em>
+                    <em>Địa chỉ email không hợp lệ</em>
                 </span>
             )}
             <TextField

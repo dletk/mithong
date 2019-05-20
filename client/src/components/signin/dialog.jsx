@@ -104,7 +104,10 @@ class SignInDialog extends Component {
                             />
                             {!formValidated && submitFailed && (
                                 <span style={{ color: "red" }}>
-                                    <em>Username or password is incorrect!</em>
+                                    <em>
+                                        Tên đăng nhập hoặc mật khẩu không chính
+                                        xác!
+                                    </em>
                                 </span>
                             )}
                         </DialogContent>
