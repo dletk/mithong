@@ -38,9 +38,13 @@ class Gender extends React.Component {
 
         const { classes, gender, onChangeGender } = this.props;
 
+        const genderLabel = "Giới tính";
+
         return (
             <FormControl className={classes.formControl} required>
-                <InputLabel htmlFor="controlled-open-select">Gender</InputLabel>
+                <InputLabel htmlFor="controlled-open-select">
+                    {genderLabel}
+                </InputLabel>
                 <Select
                     open={open}
                     onClose={this.handleClose}
@@ -53,13 +57,13 @@ class Gender extends React.Component {
                     }}
                 >
                     <MenuItem value={MALE}>
-                        <em>Male</em>
+                        <em>Nam</em>
                     </MenuItem>
                     <MenuItem value={FEMALE}>
-                        <em>Female</em>
+                        <em>Nữ</em>
                     </MenuItem>
                     <MenuItem value={OTHER}>
-                        <em>Other</em>
+                        <em>Khác</em>
                     </MenuItem>
                 </Select>
             </FormControl>

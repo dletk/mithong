@@ -43,6 +43,11 @@ const FormGeneral = props => {
         onChangeGrade
     } = props;
 
+    const firstNameLabel = "Họ *";
+    const lastNameLabel = "Tên *";
+    const birthDayLabel = "Ngày sinh";
+    const gradeLabel = "Lớp (ví dụ: TK14) *";
+
     return (
         <React.Fragment>
             <TextField
@@ -50,7 +55,7 @@ const FormGeneral = props => {
                 className={classes.margin}
                 margin="dense"
                 id="First-name"
-                label="First Name *"
+                label={firstNameLabel}
                 type="text"
                 fullWidth
                 InputProps={{
@@ -72,7 +77,7 @@ const FormGeneral = props => {
                 className={classes.margin}
                 margin="dense"
                 id="Last-name"
-                label="Last Name *"
+                label={lastNameLabel}
                 type="text"
                 fullWidth
                 InputProps={{
@@ -94,7 +99,7 @@ const FormGeneral = props => {
                 className={classes.margin}
                 margin="dense"
                 id="date"
-                label="Day of Birth"
+                label={birthDayLabel}
                 type="date"
                 fullWidth
                 InputLabelProps={{
@@ -115,7 +120,7 @@ const FormGeneral = props => {
                 className={classes.margin}
                 margin="dense"
                 id="Grade"
-                label="Grade (example: TK14) *"
+                label={gradeLabel}
                 type="text"
                 fullWidth
                 InputProps={{

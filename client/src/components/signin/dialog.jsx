@@ -79,7 +79,7 @@ class SignInDialog extends Component {
                     className={classNames(classes.root, className)}
                     onClick={this.handleClickOpen}
                 >
-                    Sign in
+                    Đăng nhập
                 </Button>
                 <Dialog
                     open={open}
@@ -88,13 +88,13 @@ class SignInDialog extends Component {
                 >
                     <form onSubmit={this.handleSubmit}>
                         <DialogTitle id="form-dialog-title">
-                            Sign in
+                            Đăng nhập
                         </DialogTitle>
                         <DialogContent>
                             <DialogContentText>
-                                Welcome to our website!!
+                                Chào mừng đến trang web của chúng tôi
                                 <br />
-                                Hope you have a great experience~~
+                                Chúc bạn có trải nghiệm thật tuyệt vời~~
                             </DialogContentText>
                             <Form
                                 username={username}
@@ -110,10 +110,10 @@ class SignInDialog extends Component {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.handleClose} color="primary">
-                                Cancel
+                                Hủy
                             </Button>
                             <Button type="submit" color="primary">
-                                Sign in
+                                Đăng nhập
                             </Button>
                         </DialogActions>
                     </form>

@@ -39,6 +39,9 @@ class Form extends Component {
 
         const { type } = this.state;
 
+        const usernameLabel = "Tên đăng nhập";
+        const passwordLabel = "Mật khẩu";
+
         return (
             <React.Fragment>
                 <TextField
@@ -46,7 +49,7 @@ class Form extends Component {
                     className={classes.margin}
                     margin="dense"
                     id="username"
-                    label="Username"
+                    label={usernameLabel}
                     type="text"
                     fullWidth
                     InputProps={{
@@ -63,7 +66,7 @@ class Form extends Component {
                     className={classes.margin}
                     margin="dense"
                     id="password"
-                    label="Password"
+                    label={passwordLabel}
                     type={type}
                     fullWidth
                     InputProps={{

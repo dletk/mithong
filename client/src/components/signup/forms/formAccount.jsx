@@ -38,6 +38,10 @@ const FormAccount = props => {
         onChangeRetypePassword
     } = props;
 
+    const usernameLabel = "Tên đăng nhập *";
+    const passwordLabel = "Mật khẩu *";
+    const retypePasswordLabel = "Nhập lại mật khẩu *";
+
     return (
         <React.Fragment>
             <TextField
@@ -45,7 +49,7 @@ const FormAccount = props => {
                 className={classes.margin}
                 margin="dense"
                 id="username"
-                label="Username *"
+                label={usernameLabel}
                 type="text"
                 fullWidth
                 InputProps={{
@@ -67,7 +71,7 @@ const FormAccount = props => {
                 className={classes.margin}
                 margin="dense"
                 id="password"
-                label="Password *"
+                label={passwordLabel}
                 type="password"
                 fullWidth
                 InputProps={{
@@ -81,8 +85,7 @@ const FormAccount = props => {
                 onChange={onChangePassword}
             />
             <small>
-                Password should contain at least one uppercase letter, one
-                lowercase letter and one number
+                Mật khẩu phải chứa ít nhất một chữ hoa, một chữ thường và một số
             </small>
             {clickedNext && !passwordValidated && (
                 <span className="error-message" align="center">
@@ -94,7 +97,7 @@ const FormAccount = props => {
                 className={classes.margin}
                 margin="dense"
                 id="Password"
-                label="Retype Password *"
+                label={retypePasswordLabel}
                 type="password"
                 fullWidth
                 InputProps={{

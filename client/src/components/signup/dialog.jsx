@@ -17,12 +17,12 @@ const styles = {
         border: 0,
         color: "white",
         height: 48,
-        padding: "0 25px",
+        padding: "0 30px",
         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
     }
 };
 
-const STEPS = ["General", "Contact", "Account"];
+const STEPS = ["Thông tin chung", "Liên lạc", "Tài khoản"];
 const [FIRST_STEP, LAST_STEP] = [0, STEPS.length - 1];
 
 class SignUpDialog extends Component {
@@ -136,21 +136,21 @@ class SignUpDialog extends Component {
                     className={classNames(classes.root, className)}
                     onClick={this.handleClickOpen}
                 >
-                    Sign up
+                    Đăng ký
                 </Button>
                 <Dialog
                     open={open}
                     onClose={this.handleClose}
                     aria-labelledby="form-dialog-title"
                 >
-                    <DialogTitle id="form-dialog-title">Sign up</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Đăng ký</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            To sign up to this website, please enter your
-                            information here.
+                            Để đăng ký tài khoản, hãy điền thông tin của bạn vào
+                            đây
                             <br />
-                            It's free and always will be.
-                            <br />* Required
+                            Miễn phí và sẽ mãi như vậy!
+                            <br />* Thông tin bắt buộc
                         </DialogContentText>
                         <Steppers
                             steps={steps}
@@ -195,7 +195,7 @@ class SignUpDialog extends Component {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
-                            Cancel
+                            Hủy
                         </Button>
                         <form onSubmit={this.handleSubmit}>
                             <Button
@@ -203,7 +203,7 @@ class SignUpDialog extends Component {
                                 color="primary"
                                 disabled={!finished}
                             >
-                                Submit
+                                Gửi đi
                             </Button>
                         </form>
                     </DialogActions>

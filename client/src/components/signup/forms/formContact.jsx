@@ -78,11 +78,15 @@ const FormContact = props => {
         onChangeAddress
     } = props;
 
+    const phoneNumberLabel = "Số điện thoại";
+    const emailLabel = "Email *";
+    const addressLabel = "Địa chỉ hiện tại";
+
     return (
         <React.Fragment>
             <FormControl className={classes.margin}>
                 <InputLabel htmlFor="formatted-text-mask-input input-with-icon-adornment">
-                    Telephone Number
+                    {phoneNumberLabel}
                 </InputLabel>
                 <Input
                     value={phoneNumber}
@@ -103,7 +107,7 @@ const FormContact = props => {
                 className={classes.margin}
                 margin="dense"
                 id="Email"
-                label="Email *"
+                label={emailLabel}
                 type="email"
                 fullWidth
                 InputProps={{
@@ -125,7 +129,7 @@ const FormContact = props => {
                 className={classes.margin}
                 margin="dense"
                 id="Address"
-                label="Address"
+                label={addressLabel}
                 type="text"
                 fullWidth
                 InputProps={{

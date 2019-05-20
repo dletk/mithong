@@ -153,7 +153,7 @@ class Steppers extends Component {
                                             onClick={onClickBack}
                                             className={classes.button}
                                         >
-                                            Back
+                                            Quay lại
                                         </Button>
                                         <Button
                                             variant="contained"
@@ -162,8 +162,8 @@ class Steppers extends Component {
                                             className={classes.button}
                                         >
                                             {activeStep === LAST_STEP
-                                                ? "Finish"
-                                                : "Next"}
+                                                ? "Hoàn tất"
+                                                : "Tiếp theo"}
                                         </Button>
                                     </div>
                                 </div>
@@ -178,14 +178,14 @@ class Steppers extends Component {
                         className={classes.resetContainer}
                     >
                         <Typography>
-                            All steps completed - You can now submit your
-                            profile
+                            Tất cả các bước đã hoàn tất. Giờ đây bạn có thể gửi
+                            đi thông tin và chờ được phê duyệt.
                         </Typography>
                         <Button
                             onClick={onClickReset}
                             className={classes.button}
                         >
-                            Reset
+                            Quay lại
                         </Button>
                     </Paper>
                 )}
