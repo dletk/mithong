@@ -24,13 +24,7 @@ const styles = {
 
 class SignInDialog extends Component {
     state = {
-        open: false,
-        username: "",
-        password: "",
-        usernameValidated: false,
-        passwordValidated: false,
-        formValidated: false,
-        submitFailed: false
+        open: false
     };
 
     handleClickOpen = () => {
@@ -41,96 +35,32 @@ class SignInDialog extends Component {
         this.setState({ open: false });
     };
 
-    handleChangeUsername = event => {
-        const [MIN_LENGTH_USERNAME, MAX_LENGTH_USERNAME] = [3, 25];
-
-        this.setState(
-            {
-                username: event.target.value
-            },
-            function() {
-                const { username } = this.state;
-
-                let usernameValidated =
-                    username.length >= MIN_LENGTH_USERNAME &&
-                    username.length <= MAX_LENGTH_USERNAME;
-
-                // Username should contain only ASCII characters
-                const ASCII = /^[!-~]*$/;
-                usernameValidated &= ASCII.test(username);
-
-                this.setState({ usernameValidated });
-            }
-        );
-    };
-
-    handleChangePassword = event => {
-        const MIN_LENGTH_PASSWORD = 8;
-
-        this.setState(
-            {
-                password: event.target.value
-            },
-            function() {
-                const { password } = this.state;
-
-                let passwordValidated = password.length >= MIN_LENGTH_PASSWORD;
-
-                // Password must contain at least one uppercase letter,
-                // one lowercase letter and one number
-                passwordValidated &=
-                    /[A-Z]/.test(password) &&
-                    /[a-z]/.test(password) &&
-                    /[0-9]/.test(password);
-
-                // Password should contain only ASCII characters
-                const ASCII = /^[!-~]*$/;
-                passwordValidated &= ASCII.test(password);
-
-                this.setState({ passwordValidated });
-            }
-        );
-    };
-
     handleSubmit = event => {
-        event.preventDefault(); // Do not reload page after submit
+        // Prevent reloading page after submitting
+        event.preventDefault();
 
-        const { usernameValidated, passwordValidated } = this.state;
+        // Submit and reset all state
+        this.props.onSubmit();
 
-        this.setState(
-            {
-                formValidated: usernameValidated && passwordValidated
-            },
-            function() {
-                const { formValidated } = this.state;
-
-                if (formValidated) {
-                    // this.props.Submit();
-                    this.setState({
-                        open: false,
-                        username: "",
-                        password: "",
-                        usernameValidated: false,
-                        passwordValidated: false
-                    });
-                } else {
-                    this.setState({
-                        submitFailed: true
-                    });
-                }
-            }
-        );
+        // Close dialog
+        this.handleClose();
     };
 
     render() {
-        const { classes, className } = this.props;
         const {
-            open,
+            classes,
+            className,
+            // User's account
             username,
             password,
+            // Validation for form sign in
             formValidated,
-            submitFailed
-        } = this.state;
+            submitFailed,
+            // Function to validate
+            onChangeUsername,
+            onChangePassword
+        } = this.props;
+        const { open } = this.state;
 
         return (
             <div>
@@ -158,8 +88,8 @@ class SignInDialog extends Component {
                             <Form
                                 username={username}
                                 password={password}
-                                onChangeUsername={this.handleChangeUsername}
-                                onChangePassword={this.handleChangePassword}
+                                onChangeUsername={onChangeUsername}
+                                onChangePassword={onChangePassword}
                             />
                             {!formValidated && submitFailed && (
                                 <span style={{ color: "red" }}>

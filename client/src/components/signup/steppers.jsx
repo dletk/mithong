@@ -31,6 +31,9 @@ const styles = theme => ({
 class Steppers extends Component {
     getStepContent = stepIndex => {
         const {
+            // Check if user has clicked the next button in step
+            clickedNext,
+
             // User's information
             firstName,
             lastName,
@@ -45,6 +48,8 @@ class Steppers extends Component {
             retypePassword,
 
             // Validation for sign up form
+            firstNameValidated,
+            lastNameValidated,
             gradeValidated,
             emailValidated,
             usernameValidated,
@@ -71,13 +76,15 @@ class Steppers extends Component {
             case FIRST_STEP:
                 return (
                     <FormGeneral
+                        clickedNext={clickedNext[FIRST_STEP]}
                         firstName={firstName}
                         lastName={lastName}
                         birthDay={birthDay}
                         gender={gender}
                         grade={grade}
+                        firstNameValidated={firstNameValidated}
+                        lastNameValidated={lastNameValidated}
                         gradeValidated={gradeValidated}
-                        emailValidated={emailValidated}
                         onChangeFirstName={onChangeFirstName}
                         onChangeLastName={onChangeLastName}
                         onChangeBirthDay={onChangeBirthDay}
@@ -88,9 +95,11 @@ class Steppers extends Component {
             case SECOND_STEP:
                 return (
                     <FormContact
+                        clickedNext={clickedNext[SECOND_STEP]}
                         phoneNumber={phoneNumber}
                         email={email}
                         address={address}
+                        emailValidated={emailValidated}
                         onChangePhoneNumber={onChangePhoneNumber}
                         onChangeEmail={onChangeEmail}
                         onChangeAddress={onChangeAddress}
@@ -99,6 +108,7 @@ class Steppers extends Component {
             case THIRD_STEP:
                 return (
                     <FormAccount
+                        clickedNext={clickedNext[THIRD_STEP]}
                         username={username}
                         password={password}
                         retypePassword={retypePassword}

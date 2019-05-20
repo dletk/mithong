@@ -18,6 +18,11 @@ const FormGeneral = props => {
     const {
         classes,
 
+        // Checked if user has clicked next button in this step
+        // The error messages only render after the first time
+        // click button next
+        clickedNext,
+
         // User's information
         firstName,
         lastName,
@@ -26,8 +31,9 @@ const FormGeneral = props => {
         grade,
 
         // Validation for general form
-        // gradeValidated,
-        // emailValidated,
+        firstNameValidated,
+        lastNameValidated,
+        gradeValidated,
 
         // Function to validate
         onChangeFirstName,
@@ -44,7 +50,7 @@ const FormGeneral = props => {
                 className={classes.margin}
                 margin="dense"
                 id="First-name"
-                label="First Name"
+                label="First Name *"
                 type="text"
                 fullWidth
                 InputProps={{
@@ -56,13 +62,17 @@ const FormGeneral = props => {
                 }}
                 value={firstName}
                 onChange={onChangeFirstName}
-                required
             />
+            {clickedNext && !firstNameValidated && (
+                <span className="error-message" align="center">
+                    <em>Invalid first name</em>
+                </span>
+            )}
             <TextField
                 className={classes.margin}
                 margin="dense"
                 id="Last-name"
-                label="Last Name"
+                label="Last Name *"
                 type="text"
                 fullWidth
                 InputProps={{
@@ -74,8 +84,12 @@ const FormGeneral = props => {
                 }}
                 value={lastName}
                 onChange={onChangeLastName}
-                required
             />
+            {clickedNext && !lastNameValidated && (
+                <span className="error-message" align="center">
+                    <em>Invalid last name</em>
+                </span>
+            )}
             <TextField
                 className={classes.margin}
                 margin="dense"
@@ -101,7 +115,7 @@ const FormGeneral = props => {
                 className={classes.margin}
                 margin="dense"
                 id="Grade"
-                label="Grade (example: TK14)"
+                label="Grade (example: TK14) *"
                 type="text"
                 fullWidth
                 InputProps={{
@@ -113,8 +127,12 @@ const FormGeneral = props => {
                 }}
                 value={grade}
                 onChange={onChangeGrade}
-                required
             />
+            {clickedNext && !gradeValidated && (
+                <span className="error-message" align="center">
+                    <em>Invalid grade</em>
+                </span>
+            )}
         </React.Fragment>
     );
 };

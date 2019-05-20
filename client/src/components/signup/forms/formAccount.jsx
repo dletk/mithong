@@ -5,6 +5,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Lock from "@material-ui/icons/Lock";
+import "./style.css";
 
 const styles = theme => ({
     margin: {
@@ -16,15 +17,20 @@ const FormAccount = props => {
     const {
         classes,
 
+        // Checked if user has clicked next button in this step
+        // The error messages only render after the first time
+        // click button next
+        clickedNext,
+
         // User's information
         username,
         password,
         retypePassword,
 
         // Validation for acount form
-        // usernameValidated,
-        // passwordValidated,
-        // retypePasswordValidated,
+        usernameValidated,
+        passwordValidated,
+        retypePasswordValidated,
 
         // Function to validate
         onChangeUsername,
@@ -39,7 +45,7 @@ const FormAccount = props => {
                 className={classes.margin}
                 margin="dense"
                 id="username"
-                label="Username"
+                label="Username *"
                 type="text"
                 fullWidth
                 InputProps={{
@@ -51,13 +57,17 @@ const FormAccount = props => {
                 }}
                 value={username}
                 onChange={onChangeUsername}
-                required
             />
+            {clickedNext && !usernameValidated && (
+                <span className="error-message" align="center">
+                    <em>Invalid username. </em>
+                </span>
+            )}
             <TextField
                 className={classes.margin}
                 margin="dense"
                 id="password"
-                label="Password"
+                label="Password *"
                 type="password"
                 fullWidth
                 InputProps={{
@@ -69,13 +79,22 @@ const FormAccount = props => {
                 }}
                 value={password}
                 onChange={onChangePassword}
-                required
             />
+            <small>
+                Password should contain at least one uppercase letter, one
+                lowercase letter and one number
+            </small>
+            {clickedNext && !passwordValidated && (
+                <span className="error-message" align="center">
+                    <br />
+                    <em>Invalid password!</em>
+                </span>
+            )}
             <TextField
                 className={classes.margin}
                 margin="dense"
                 id="Password"
-                label="Retype Password"
+                label="Retype Password *"
                 type="password"
                 fullWidth
                 InputProps={{
@@ -87,8 +106,12 @@ const FormAccount = props => {
                 }}
                 value={retypePassword}
                 onChange={onChangeRetypePassword}
-                required
             />
+            {clickedNext && !retypePasswordValidated && (
+                <span className="error-message" align="center">
+                    <em>This is not match to password</em>
+                </span>
+            )}
         </React.Fragment>
     );
 };

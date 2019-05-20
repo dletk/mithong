@@ -17,43 +17,21 @@ const styles = {
         border: 0,
         color: "white",
         height: 48,
-        padding: "0 30px",
+        padding: "0 25px",
         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
     }
 };
 
 const STEPS = ["General", "Contact", "Account"];
 const [FIRST_STEP, LAST_STEP] = [0, STEPS.length - 1];
-const DEFAULT_BIRTH_DAY = "yyyy-MM-dd"; // I don't know why this get warning??
-const MALE = 0;
-const DEFAULT_PHONE_NUMBER = "(+84)   -   -    ";
 
 class SignUpDialog extends Component {
     state = {
         open: false,
         steps: STEPS,
         activeStep: FIRST_STEP,
-        finished: false,
-
-        // User's information
-        firstName: "",
-        lastName: "",
-        birthDay: DEFAULT_BIRTH_DAY,
-        gender: MALE,
-        grade: "",
-        phoneNumber: DEFAULT_PHONE_NUMBER,
-        email: "",
-        address: "",
-        username: "",
-        password: "",
-        retypePassword: "",
-
-        // Validation for sign up form
-        gradeValidated: false,
-        emailValidated: false,
-        usernameValidated: false,
-        passwordValidated: false,
-        retypePasswordValidated: false
+        clickedNext: [false, false, false],
+        finished: false
     };
 
     handleClickOpen = () => {
@@ -65,9 +43,26 @@ class SignUpDialog extends Component {
     };
 
     handleClickNext = () => {
+        // Validation for each step
+        const { stepValidated } = this.props;
+        const { activeStep } = this.state;
+
+        if (!stepValidated[activeStep]) {
+            // After the first click "next" of each step,
+            // the error message for each field in the step
+            // will render if this field is not valid
+            let clickedNext = [...this.state.clickedNext];
+            clickedNext[activeStep] = true;
+            this.setState({ clickedNext });
+
+            // If at least one required field is not correct,
+            // cannot go to next step
+            return;
+        }
+
         this.setState({
-            activeStep: this.state.activeStep + 1,
-            finished: this.state.activeStep === LAST_STEP
+            activeStep: activeStep + 1,
+            finished: activeStep === LAST_STEP
         });
     };
 
@@ -81,56 +76,23 @@ class SignUpDialog extends Component {
         this.setState({ activeStep: FIRST_STEP });
     };
 
-    handleChangeFirstName = event => {
-        this.setState({ firstName: event.target.value });
-    };
+    handleSubmit = event => {
+        // Prevent reloading page after submitting
+        event.preventDefault();
 
-    handleChangeLastName = event => {
-        this.setState({ lastName: event.target.value });
-    };
+        // Submit and reset all state
+        this.props.onSubmit();
 
-    handleChangeBirthDay = event => {
-        this.setState({ birthDay: event.target.value });
-    };
-
-    handleChangeGender = event => {
-        this.setState({ [event.target.name]: event.target.value });
-    };
-
-    handleChangeGrade = event => {
-        this.setState({ grade: event.target.value });
-    };
-
-    handleChangePhoneNumber = event => {
-        this.setState({ [event.target.name]: event.target.value });
-    };
-
-    handleChangeEmail = event => {
-        this.setState({ email: event.target.value });
-    };
-
-    handleChangeAddress = event => {
-        this.setState({ address: event.target.value });
-    };
-
-    hanldeChangeUsername = event => {
-        this.setState({ username: event.target.value });
-    };
-
-    handleChangePassword = event => {
-        this.setState({ password: event.target.value });
-    };
-
-    handleChangeRetypePassword = event => {
-        this.setState({ retypePassword: event.target.value });
+        // Close dialog
+        this.handleClose();
     };
 
     render() {
+        const { open, steps, activeStep, clickedNext, finished } = this.state;
+
         const {
-            open,
-            steps,
-            activeStep,
-            finished,
+            classes,
+            className,
 
             // User's information
             firstName,
@@ -146,14 +108,27 @@ class SignUpDialog extends Component {
             retypePassword,
 
             // Validation for sign up form
-            classValidated,
+            firstNameValidated,
+            lastNameValidated,
+            gradeValidated,
             emailValidated,
             usernameValidated,
             passwordValidated,
-            retypePasswordValidated
-        } = this.state;
+            retypePasswordValidated,
 
-        const { classes, className } = this.props;
+            // Function to validate
+            onChangeFirstName,
+            onChangeLastName,
+            onChangeBirthDay,
+            onChangeGender,
+            onChangeGrade,
+            onChangePhoneNumber,
+            onChangeEmail,
+            onChangeAddress,
+            onChangeUsername,
+            onChangePassword,
+            onChangeRetypePassword
+        } = this.props;
 
         return (
             <div>
@@ -175,10 +150,12 @@ class SignUpDialog extends Component {
                             information here.
                             <br />
                             It's free and always will be.
+                            <br />* Required
                         </DialogContentText>
                         <Steppers
                             steps={steps}
                             activeStep={activeStep}
+                            clickedNext={clickedNext}
                             onClickNext={this.handleClickNext}
                             onClickBack={this.handleClickBack}
                             onClickReset={this.handleClickReset}
@@ -195,38 +172,40 @@ class SignUpDialog extends Component {
                             password={password}
                             retypePassword={retypePassword}
                             // Validation for sign up form
-                            classValidated={classValidated}
+                            firstNameValidated={firstNameValidated}
+                            lastNameValidated={lastNameValidated}
+                            gradeValidated={gradeValidated}
                             emailValidated={emailValidated}
                             usernameValidated={usernameValidated}
                             passwordValidated={passwordValidated}
                             retypePasswordValidated={retypePasswordValidated}
                             // Handle function to validate
-                            onChangeFirstName={this.handleChangeFirstName}
-                            onChangeLastName={this.handleChangeLastName}
-                            onChangeBirthDay={this.handleChangeBirthDay}
-                            onChangeGender={this.handleChangeGender}
-                            onChangeGrade={this.handleChangeGrade}
-                            onChangePhoneNumber={this.handleChangePhoneNumber}
-                            onChangeEmail={this.handleChangeEmail}
-                            onChangeAddress={this.handleChangeAddress}
-                            onChangeUsername={this.hanldeChangeUsername}
-                            onChangePassword={this.handleChangePassword}
-                            onChangeRetypePassword={
-                                this.handleChangeRetypePassword
-                            }
+                            onChangeFirstName={onChangeFirstName}
+                            onChangeLastName={onChangeLastName}
+                            onChangeBirthDay={onChangeBirthDay}
+                            onChangeGender={onChangeGender}
+                            onChangeGrade={onChangeGrade}
+                            onChangePhoneNumber={onChangePhoneNumber}
+                            onChangeEmail={onChangeEmail}
+                            onChangeAddress={onChangeAddress}
+                            onChangeUsername={onChangeUsername}
+                            onChangePassword={onChangePassword}
+                            onChangeRetypePassword={onChangeRetypePassword}
                         />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button
-                            onClick={this.handleClose}
-                            color="primary"
-                            disabled={!finished}
-                        >
-                            Submit
-                        </Button>
+                        <form onSubmit={this.handleSubmit}>
+                            <Button
+                                type="submit"
+                                color="primary"
+                                disabled={!finished}
+                            >
+                                Submit
+                            </Button>
+                        </form>
                     </DialogActions>
                 </Dialog>
             </div>

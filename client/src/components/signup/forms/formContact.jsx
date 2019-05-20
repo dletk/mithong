@@ -10,6 +10,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Email from "@material-ui/icons/Email";
 import Phone from "@material-ui/icons/Phone";
 import LocationOn from "@material-ui/icons/LocationOn";
+import "./style.css";
 
 const styles = theme => ({
     margin: {
@@ -58,10 +59,18 @@ const FormContact = props => {
     const {
         classes,
 
+        // Checked if user has clicked next button in this step
+        // The error messages only render after the first time
+        // click button next
+        clickedNext,
+
         // User's information
         phoneNumber,
         email,
         address,
+
+        // Validation for contact form
+        emailValidated,
 
         // Function to validate
         onChangePhoneNumber,
@@ -94,7 +103,7 @@ const FormContact = props => {
                 className={classes.margin}
                 margin="dense"
                 id="Email"
-                label="Email"
+                label="Email *"
                 type="email"
                 fullWidth
                 InputProps={{
@@ -106,8 +115,12 @@ const FormContact = props => {
                 }}
                 value={email}
                 onChange={onChangeEmail}
-                required
             />
+            {clickedNext && !emailValidated && (
+                <span className="error-message" align="center">
+                    <em>Invalid email address</em>
+                </span>
+            )}
             <TextField
                 className={classes.margin}
                 margin="dense"
