@@ -9,9 +9,7 @@ class SignIn extends Component {
 
         // Validation for sign in form
         usernameValidated: false,
-        passwordValidated: false,
-        formValidated: false,
-        submitFailed: false
+        passwordValidated: false
     };
 
     handleChangeUsername = event => {
@@ -53,33 +51,24 @@ class SignIn extends Component {
         });
     };
 
-    handleSubmit = event => {
-        const { usernameValidated, passwordValidated } = this.state;
-
-        this.setState(
-            { formValidated: usernameValidated && passwordValidated },
-            function() {
-                const { formValidated } = this.state;
-
-                if (formValidated) {
-                    // this.props.Submit();
-                    this.setState({
-                        username: "",
-                        password: "",
-                        usernameValidated: false,
-                        passwordValidated: false
-                    });
-                } else {
-                    this.setState({
-                        submitFailed: true
-                    });
-                }
-            }
-        );
+    handleSubmit = () => {
+        this.setState({
+            username: "",
+            password: "",
+            usernameValidated: false,
+            passwordValidated: false
+        });
     };
 
     render() {
-        const { username, password, formValidated, submitFailed } = this.state;
+        const {
+            username,
+            password,
+            usernameValidated,
+            passwordValidated
+        } = this.state;
+
+        const formValidated = usernameValidated && passwordValidated;
 
         return (
             <SignInDialog
@@ -88,7 +77,6 @@ class SignIn extends Component {
                 password={password}
                 // Validation for form sign in
                 formValidated={formValidated}
-                submitFailed={submitFailed}
                 // Handle function to validate
                 onChangeUsername={this.handleChangeUsername}
                 onChangePassword={this.handleChangePassword}

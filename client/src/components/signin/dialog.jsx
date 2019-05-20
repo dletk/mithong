@@ -24,11 +24,12 @@ const styles = {
 
 class SignInDialog extends Component {
     state = {
-        open: false
+        open: false,
+        submitFailed: false
     };
 
     handleClickOpen = () => {
-        this.setState({ open: true });
+        this.setState({ open: true, submitFailed: false });
     };
 
     handleClose = () => {
@@ -39,28 +40,38 @@ class SignInDialog extends Component {
         // Prevent reloading page after submitting
         event.preventDefault();
 
-        // Submit and reset all state
-        this.props.onSubmit();
+        const { formValidated } = this.props;
 
-        // Close dialog
-        this.handleClose();
+        if (formValidated) {
+            // Submit and reset all state
+            this.props.onSubmit();
+
+            // Close dialog
+            this.handleClose();
+        } else {
+            this.setState({
+                submitFailed: true
+            });
+        }
     };
 
     render() {
         const {
             classes,
             className,
+
             // User's account
             username,
             password,
-            // Validation for form sign in
+
+            // Validation for sign in form
             formValidated,
-            submitFailed,
+
             // Function to validate
             onChangeUsername,
             onChangePassword
         } = this.props;
-        const { open } = this.state;
+        const { open, submitFailed } = this.state;
 
         return (
             <div>
