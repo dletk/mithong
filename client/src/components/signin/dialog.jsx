@@ -8,7 +8,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Form from "./form";
+import FormSignIn from "./form";
 
 const styles = {
     root: {
@@ -96,7 +96,7 @@ class SignInDialog extends Component {
                                 <br />
                                 Chúc bạn có trải nghiệm thật tuyệt vời~~
                             </DialogContentText>
-                            <Form
+                            <FormSignIn
                                 username={username}
                                 password={password}
                                 onChangeUsername={onChangeUsername}

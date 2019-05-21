@@ -7,6 +7,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Lock from "@material-ui/icons/Lock";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import "./style.css";
 
 const styles = theme => ({
     margin: {
@@ -14,7 +15,7 @@ const styles = theme => ({
     }
 });
 
-class Form extends Component {
+class FormSignIn extends Component {
     state = {
         type: "password"
     };
@@ -62,36 +63,39 @@ class Form extends Component {
                     value={username}
                     onChange={onChangeUsername}
                 />
-                <TextField
-                    className={classes.margin}
-                    margin="dense"
-                    id="password"
-                    label={passwordLabel}
-                    type={type}
-                    fullWidth
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <Lock />
-                            </InputAdornment>
-                        )
-                    }}
-                    value={password}
-                    onChange={onChangePassword}
-                />
-                <span
-                    style={{ cursor: "pointer" }}
-                    onClick={this.visiblePassword}
-                >
-                    {type === "text" ? <Visibility /> : <VisibilityOff />}
-                </span>
+                <div className="group">
+                    <TextField
+                        className={classes.margin}
+                        margin="dense"
+                        id="password"
+                        label={passwordLabel}
+                        type={type}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <Lock />
+                                </InputAdornment>
+                            )
+                        }}
+                        fullWidth
+                        value={password}
+                        onChange={onChangePassword}
+                    />
+                    <span
+                        toogle="#password"
+                        className="field-icon"
+                        onClick={this.visiblePassword}
+                    >
+                        {type === "text" ? <Visibility /> : <VisibilityOff />}
+                    </span>
+                </div>
             </React.Fragment>
         );
     }
 }
 
-Form.propTypes = {
+FormSignIn.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Form);
+export default withStyles(styles)(FormSignIn);
