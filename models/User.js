@@ -78,6 +78,20 @@ userSchema.methods.setPassword = function (password) {
     });
 };
 
+
+// ======================== MODEL INSTANCE METHODS ================================
+// user password validation
+// this function need to return a boolean value
+userSchema.methods.validatePassword = function (password, isFinished) {
+    correctHash = this.hash;
+    givenHash = crypto.pbkdf2Sync(password, this.salt, PBKDF2_ITERATIONS, PBKDF2_KEYLEN, PBKDF2_DIGEST).toString('hex');
+    console.log("Given hash: " + givenHash);
+    return (givenHash == correctHash);
+};
+
+
+// ========================= MODEL STATIC METHODS =================================
+
 /**
  * user password validation
  *  This is a model static method
