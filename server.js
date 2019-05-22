@@ -13,12 +13,23 @@ const app = express();
 
 // Load in all the middlewares needed
 app.use(helmet());
+
+// Module to print out request details for debugging and development environemt
+const morgan = require("morgan");
+if (process.env.NODE_ENV == "development") {
+    app.use(morgan("tiny"));
+}
+
+// Using body-parser
+const body_parser = require("body-parser");
 // These middlewares help to transform the request body into JSON format
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(body_parser.json());
+app.use(body_parser.urlencoded({ extended: true }));
+
 
 // Load in the routes
 app.use("/", require("./routes/home"));
+app.use("/api", require("./routes/api"));
 
 // Get the PORT from the environment
 // or using the port 3000
