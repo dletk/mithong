@@ -80,8 +80,8 @@ userSchema.methods.setPassword = function (password) {
 userSchema.methods.validatePassword = function (password) {
     correctHash = this.hash;
     givenHash = crypto.pbkdf2Sync(password, this.salt, PBKDF2_ITERATIONS, PBKDF2_KEYLEN, PBKDF2_DIGEST).toString('hex');
-    console.log("Given hash: " + givenHash);
-    console.log("Correct hash: " + correctHash);
+    debug_model_user("Given hash:\n" + givenHash);
+    debug_model_user("Correct hash:\n" + correctHash);
     return (givenHash == correctHash);
 };
 

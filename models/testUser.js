@@ -3,11 +3,6 @@ const mongoose = require("mongoose");
 // Use the debugger as follow in terminal: DEBUG=model:user nodemon/node/... testUser.js
 const debug_model_user = require("debug")("model:user");
 
-
-mongoose.connect("mongodb://localhost/mithongTestDatabase", {useNewUrlParser: true})
-    .then(() => console.log("Connected to database"))
-    .catch((err) => console.log(err));
-
 require("./User");
 const User = mongoose.model("User");
 
@@ -51,7 +46,7 @@ async function testCreatedUser() {
 async function testAuthenticateUser(username, password) {
     try {
         const user = await User.findOne({username: username});
-        console.log(`Queried user: ${user}`);
+        debug_model_user(`Queried user:\n${user}`);
         if (!user || !user.validatePassword(password)) {
             console.log("Wrong username or password");
         } else {
@@ -62,5 +57,12 @@ async function testAuthenticateUser(username, password) {
     }
 }
 
-// testCreatedUser();
-testAuthenticateUser("duc", "123456");
+mongoose.connect("mongodb://localhost/mithongTestDatabase", { useNewUrlParser: true })
+    .then(() => {
+        console.log("Connected to database");
+        // testCreatedUser();
+        console.log("========> Test authentication")
+        testAuthenticateUser("duc", "123456");
+    })
+    .catch((err) => console.log(err));
+
