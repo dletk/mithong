@@ -20,6 +20,7 @@ const userSchema = new Schema({
     username: {
         type: String,
         required: true,
+        unique: true,
         minlength: 3, // Make sure the username is long enough to be descriptive
         maxlength: 25
     },
