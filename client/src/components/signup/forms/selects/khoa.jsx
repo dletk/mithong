@@ -23,7 +23,7 @@ const styles = theme => ({
 const TODAY = new Date();
 const YEAR = TODAY.getFullYear();
 
-// khoa = year - 2001, NOK - NUMBER_OF_KHOA
+// NOK - NUMBER_OF_KHOA
 const NOK = YEAR - 2001;
 
 // Create an array of NOK elements corresponding to NOK
@@ -71,7 +71,7 @@ class Khoa extends React.Component {
                     }
                 >
                     {khoaArray.map(khoa => (
-                        <MenuItem value={khoa}>
+                        <MenuItem key={khoa} value={khoa}>
                             <em>Khóa {khoa + 1}</em>
                         </MenuItem>
                     ))}

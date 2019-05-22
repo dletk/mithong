@@ -5,9 +5,9 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
 import PermIdentity from "@material-ui/icons/PermIdentity";
 import CalendarToday from "@material-ui/icons/CalendarToday";
-import Gender from "./Selects/gender";
-import Khoi from "./Selects/khoi";
-import Khoa from "./Selects/khoa";
+import Gender from "./selects/gender";
+import Khoi from "./selects/khoi";
+import Khoa from "./selects/khoa";
 
 const styles = theme => ({
     margin: {
