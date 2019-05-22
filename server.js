@@ -26,7 +26,6 @@ const body_parser = require("body-parser");
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: true }));
 
-
 // Load in the routes
 app.use("/", require("./routes/home"));
 app.use("/api", require("./routes/api"));
