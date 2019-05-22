@@ -153,6 +153,7 @@ class SignUp extends Component {
 
     // Handle Submit Function
     handleSubmit = () => {
+        // Reset all state
         this.setState({
             // User's information
             firstName: "",

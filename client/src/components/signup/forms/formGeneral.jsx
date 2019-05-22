@@ -45,8 +45,8 @@ const FormGeneral = props => {
         onChangeKhoa
     } = props;
 
-    const firstNameLabel = "Họ *";
-    const lastNameLabel = "Tên *";
+    const firstNameLabel = "Tên *";
+    const lastNameLabel = "Họ *";
     const birthDayLabel = "Ngày sinh";
 
     return (
