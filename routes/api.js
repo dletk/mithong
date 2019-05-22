@@ -34,11 +34,15 @@ router.post(["/newUser"], (req, res) => {
         user.setPassword(req.body.password);
 
         // Save user
-        user.save();
-
-        // TODO: Create the authentication JSON with JWT for this user and send back
-        console.log(user);
-        res.send("Success!!!");
+        user.save()
+            .then(() => {
+                // TODO: Create the authentication JSON with JWT for this user and send back
+                console.log(user);
+                res.send("Success!!!");
+            })
+            .catch((error) => {
+                res.status(400).send(error.message);
+            });
     }
 })
 
