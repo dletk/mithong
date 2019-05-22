@@ -67,15 +67,10 @@ userSchema.methods.foo = function () {
 userSchema.methods.setPassword = function (password) {
     this.salt = crypto.randomBytes(PASSWORD_SALT_LENGTH).toString('hex');
     // pbkdf2 = Password-Based Key Derivation Function 2
-    // crypto.pbkdf2(password, salt, iterations, keylen, digest, callback)
     // This method generate the hash based on the password provided
-    crypto.pbkdf2(password, this.salt, PBKDF2_ITERATIONS, PBKDF2_KEYLEN, PBKDF2_DIGEST, (err, derivedKey) => {
-        if (err) throw err;
-        // derivedKey is in Buffer form
-        // toString('hex'): convert derivedKey to hex
-        this.hash = derivedKey.toString('hex');
-        debug_model_user('===> Derived hash value:\n' + this.hash);
-    });
+    // Using the asynchronous version making it difficult to save the instance to database (because this mthod only use callback)
+    this.hash = crypto.pbkdf2Sync(password, this.salt, PBKDF2_ITERATIONS, PBKDF2_KEYLEN, PBKDF2_DIGEST).toString("hex");
+    debug_model_user('===> Derived hash value:\n' + this.hash);
 };
 
 
@@ -86,6 +81,7 @@ userSchema.methods.validatePassword = function (password) {
     correctHash = this.hash;
     givenHash = crypto.pbkdf2Sync(password, this.salt, PBKDF2_ITERATIONS, PBKDF2_KEYLEN, PBKDF2_DIGEST).toString('hex');
     console.log("Given hash: " + givenHash);
+    console.log("Correct hash: " + correctHash);
     return (givenHash == correctHash);
 };
 
@@ -103,6 +99,10 @@ userSchema.methods.validatePassword = function (password) {
 userSchema.statics.validatePassword = function (user, inputPassword, validationHandler) {
     correctHash = user.hash;
     userSalt = user.salt
+
+    console.log(user);
+
+
     // pbkdf2Sync = synchronous Password-Based Key Derivation Function 2
     // crypto.pbkdf2Sync(password, salt, iterations, keylen, digest)
 

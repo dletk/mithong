@@ -4,17 +4,20 @@ const mongoose = require("mongoose");
 const debug_model_user = require("debug")("model:user");
 
 
-require("./User");
+mongoose.connect("mongodb://localhost/mithongTestDatabase", {useNewUrlParser: true})
+    .then(() => console.log("Connected to database"))
+    .catch((err) => console.log(err));
 
+require("./User");
 const User = mongoose.model("User");
 
 
-function testUser() {
+async function testCreatedUser() {
     var duc = User({ username: "duc", lastname: "Le", firstname: "Duc", email: "duclmas@gmail.com" });
 
     duc.setPassword("123456");
 
-    console.log(duc);
+    const result = await duc.save();
 
     console.log("======= Created User =======");
 
@@ -42,7 +45,22 @@ function testUser() {
             // Using the callback to print out the validation data
             User.validatePassword(duc, "123456", isValidated);
         }
-    }, 100);
+    }, 2000);
 }
 
-testUser()
+async function testAuthenticateUser(username, password) {
+    try {
+        const user = await User.findOne({username: username});
+        console.log(`Queried user: ${user}`);
+        if (!user || !user.validatePassword(password)) {
+            console.log("Wrong username or password");
+        } else {
+            console.log("Validate successfully!");
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// testCreatedUser();
+testAuthenticateUser("duc", "123456");
