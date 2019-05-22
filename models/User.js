@@ -43,7 +43,7 @@ const userSchema = new Schema({
         contentType: String
     },
     joinedDate: {
-        type: String,
+        type: Date,
         default: Date.now
     },
     // This is for password
