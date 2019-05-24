@@ -30,8 +30,17 @@ class SignUpDialog extends Component {
         open: false,
         steps: STEPS,
         activeStep: FIRST_STEP,
-        clickedNext: [false, false, false],
-        finished: false
+        finished: false,
+
+        // Error message
+        errors: {
+            firstname: "",
+            lastname: "",
+            email: "",
+            username: "",
+            password: "",
+            retypePassword: ""
+        }
     };
 
     handleClickOpen = () => {
@@ -43,26 +52,37 @@ class SignUpDialog extends Component {
     };
 
     handleClickNext = () => {
-        // Validation for each step
-        const { stepValidated } = this.props;
         const { activeStep } = this.state;
 
-        if (!stepValidated[activeStep]) {
-            // After the first click "next" of each step,
-            // the error message for each field in the step
-            // will render if this field is not valid
-            let clickedNext = [...this.state.clickedNext];
-            clickedNext[activeStep] = true;
-            this.setState({ clickedNext });
+        const errors = this.props.validate();
+        this.setState({ errors });
 
-            // If at least one required field is not correct,
-            // cannot go to next step
-            return;
-        }
+        // If at least one required field is not correct,
+        // cannot go to next step
+        const stepValidated = [
+            // First step
+            errors.firstname === "" && errors.lastname === "",
+            // Second step
+            errors.email === "",
+            // Third step
+            errors.username === "" &&
+                errors.password === "" &&
+                errors.retypePassword === ""
+        ];
+
+        if (!stepValidated[activeStep]) return;
 
         this.setState({
             activeStep: activeStep + 1,
-            finished: activeStep === LAST_STEP
+            finished: activeStep === LAST_STEP,
+            errors: {
+                firstname: "",
+                lastname: "",
+                email: "",
+                username: "",
+                password: "",
+                retypePassword: ""
+            }
         });
     };
 
@@ -88,48 +108,9 @@ class SignUpDialog extends Component {
     };
 
     render() {
-        const { open, steps, activeStep, clickedNext, finished } = this.state;
+        const { open, steps, activeStep, finished, errors } = this.state;
 
-        const {
-            classes,
-            className,
-
-            // User's information
-            firstName,
-            lastName,
-            birthDay,
-            gender,
-            khoi,
-            khoa,
-            phoneNumber,
-            email,
-            address,
-            username,
-            password,
-            retypePassword,
-
-            // Validation for sign up form
-            firstNameValidated,
-            lastNameValidated,
-            emailValidated,
-            usernameValidated,
-            passwordValidated,
-            retypePasswordValidated,
-
-            // Function to validate
-            onChangeFirstName,
-            onChangeLastName,
-            onChangeBirthDay,
-            onChangeGender,
-            onChangeKhoi,
-            onChangeKhoa,
-            onChangePhoneNumber,
-            onChangeEmail,
-            onChangeAddress,
-            onChangeUsername,
-            onChangePassword,
-            onChangeRetypePassword
-        } = this.props;
+        const { classes, className, account, onChangeForm } = this.props;
 
         return (
             <div>
@@ -144,62 +125,35 @@ class SignUpDialog extends Component {
                     onClose={this.handleClose}
                     aria-labelledby="form-dialog-title"
                 >
-                    <DialogTitle id="form-dialog-title">Đăng ký</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            Để đăng ký tài khoản, hãy điền thông tin của bạn vào
-                            đây
-                            <br />
-                            Miễn phí và sẽ mãi như vậy!
-                            <br />* Thông tin bắt buộc
-                        </DialogContentText>
-                        <Steppers
-                            steps={steps}
-                            activeStep={activeStep}
-                            clickedNext={clickedNext}
-                            onClickNext={this.handleClickNext}
-                            onClickBack={this.handleClickBack}
-                            onClickReset={this.handleClickReset}
-                            // User's information
-                            firstName={firstName}
-                            lastName={lastName}
-                            birthDay={birthDay}
-                            gender={gender}
-                            khoi={khoi}
-                            khoa={khoa}
-                            phoneNumber={phoneNumber}
-                            email={email}
-                            address={address}
-                            username={username}
-                            password={password}
-                            retypePassword={retypePassword}
-                            // Validation for sign up form
-                            firstNameValidated={firstNameValidated}
-                            lastNameValidated={lastNameValidated}
-                            emailValidated={emailValidated}
-                            usernameValidated={usernameValidated}
-                            passwordValidated={passwordValidated}
-                            retypePasswordValidated={retypePasswordValidated}
-                            // Handle function to validate
-                            onChangeFirstName={onChangeFirstName}
-                            onChangeLastName={onChangeLastName}
-                            onChangeBirthDay={onChangeBirthDay}
-                            onChangeGender={onChangeGender}
-                            onChangeKhoi={onChangeKhoi}
-                            onChangeKhoa={onChangeKhoa}
-                            onChangePhoneNumber={onChangePhoneNumber}
-                            onChangeEmail={onChangeEmail}
-                            onChangeAddress={onChangeAddress}
-                            onChangeUsername={onChangeUsername}
-                            onChangePassword={onChangePassword}
-                            onChangeRetypePassword={onChangeRetypePassword}
-                        />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
-                            Hủy
-                        </Button>
-                        <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit}>
+                        <DialogTitle id="form-dialog-title">
+                            Đăng ký
+                        </DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Để đăng ký tài khoản, hãy điền thông tin của bạn
+                                vào đây
+                                <br />
+                                Miễn phí và sẽ mãi như vậy!
+                                <br />* Thông tin bắt buộc
+                            </DialogContentText>
+                            <Steppers
+                                // Steppers
+                                steps={steps}
+                                activeStep={activeStep}
+                                onClickNext={this.handleClickNext}
+                                onClickBack={this.handleClickBack}
+                                onClickReset={this.handleClickReset}
+                                // Form
+                                account={account}
+                                onChangeForm={onChangeForm}
+                                errors={errors}
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleClose} color="primary">
+                                Hủy
+                            </Button>
                             <Button
                                 type="submit"
                                 color="primary"
@@ -207,8 +161,8 @@ class SignUpDialog extends Component {
                             >
                                 Gửi đi
                             </Button>
-                        </form>
-                    </DialogActions>
+                        </DialogActions>
+                    </form>
                 </Dialog>
             </div>
         );

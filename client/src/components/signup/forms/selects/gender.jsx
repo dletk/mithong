@@ -36,7 +36,7 @@ class Gender extends React.Component {
     render() {
         const { open } = this.state;
 
-        const { classes, gender, onChangeGender } = this.props;
+        const { classes, gender, onChangeForm } = this.props;
 
         const genderLabel = "Giới tính";
 
@@ -50,7 +50,7 @@ class Gender extends React.Component {
                     onClose={this.handleClose}
                     onOpen={this.handleOpen}
                     value={gender}
-                    onChange={onChangeGender}
+                    onChange={onChangeForm}
                     inputProps={{
                         name: "gender",
                         id: "controlled-open-select"

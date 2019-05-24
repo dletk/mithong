@@ -45,7 +45,7 @@ class Khoa extends React.Component {
     render() {
         const { open } = this.state;
 
-        const { classes, khoa, onChangeKhoa } = this.props;
+        const { classes, khoa, onChangeForm } = this.props;
 
         const khoaLabel = "Khóa";
 
@@ -59,7 +59,7 @@ class Khoa extends React.Component {
                     onClose={this.handleClose}
                     onOpen={this.handleOpen}
                     value={khoa}
-                    onChange={onChangeKhoa}
+                    onChange={onChangeForm}
                     inputProps={{
                         name: "khoa",
                         id: "controlled-open-select"

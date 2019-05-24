@@ -67,9 +67,7 @@ class SignInDialog extends Component {
             onChangeForm
         } = this.props;
 
-        const { errors } = this.state;
-
-        const { open } = this.state;
+        const { open, errors } = this.state;
 
         return (
             <div>

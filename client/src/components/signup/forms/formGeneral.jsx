@@ -16,38 +16,13 @@ const styles = theme => ({
 });
 
 const FormGeneral = props => {
-    const {
-        classes,
+    const { classes, account, onChangeForm, errors } = props;
 
-        // Checked if user has clicked next button in this step
-        // The error messages only render after the first time
-        // click button next
-        clickedNext,
+    const { firstname, lastname, dateOfBirth, gender, khoi, khoa } = account;
 
-        // User's information
-        firstName,
-        lastName,
-        birthDay,
-        gender,
-        khoi,
-        khoa,
-
-        // Validation for general form
-        firstNameValidated,
-        lastNameValidated,
-
-        // Function to validate
-        onChangeFirstName,
-        onChangeLastName,
-        onChangeBirthDay,
-        onChangeGender,
-        onChangeKhoi,
-        onChangeKhoa
-    } = props;
-
-    const firstNameLabel = "Tên *";
-    const lastNameLabel = "Họ *";
-    const birthDayLabel = "Ngày sinh";
+    const firstnameLabel = "Tên *";
+    const lastnameLabel = "Họ *";
+    const dateOfBirthLabel = "Ngày sinh";
 
     return (
         <React.Fragment>
@@ -55,71 +30,74 @@ const FormGeneral = props => {
                 autoFocus
                 className={classes.margin}
                 margin="dense"
-                id="First-name"
-                label={firstNameLabel}
+                label={firstnameLabel}
                 type="text"
                 fullWidth
                 InputProps={{
+                    name: "firstname",
+                    id: "First-name",
                     startAdornment: (
                         <InputAdornment position="start">
                             <PermIdentity />
                         </InputAdornment>
                     )
                 }}
-                value={firstName}
-                onChange={onChangeFirstName}
+                value={firstname}
+                onChange={onChangeForm}
             />
-            {clickedNext && !firstNameValidated && (
+            {errors.firstname !== "" && (
                 <span className="error-message" align="center">
-                    <em>Họ không hợp lệ</em>
+                    <em>{errors.firstname}</em>
                 </span>
             )}
             <TextField
                 className={classes.margin}
                 margin="dense"
-                id="Last-name"
-                label={lastNameLabel}
+                label={lastnameLabel}
                 type="text"
                 fullWidth
                 InputProps={{
+                    name: "lastname",
+                    id: "Last-name",
                     startAdornment: (
                         <InputAdornment position="start">
                             <PermIdentity />
                         </InputAdornment>
                     )
                 }}
-                value={lastName}
-                onChange={onChangeLastName}
+                value={lastname}
+                onChange={onChangeForm}
             />
-            {clickedNext && !lastNameValidated && (
+            {errors.lastname !== "" && (
                 <span className="error-message" align="center">
-                    <em>Tên không hợp lệ</em>
+                    <em>{errors.lastname}</em>
                 </span>
             )}
             <TextField
                 className={classes.margin}
                 margin="dense"
-                id="date"
-                label={birthDayLabel}
+                label={dateOfBirthLabel}
                 type="date"
                 fullWidth
                 InputLabelProps={{
                     shrink: true
                 }}
                 InputProps={{
+                    name: "dateOfBirth",
+                    id: "date",
                     startAdornment: (
                         <InputAdornment position="start">
                             <CalendarToday />
                         </InputAdornment>
                     )
                 }}
-                value={birthDay}
-                onChange={onChangeBirthDay}
+                value={dateOfBirth}
+                onChange={onChangeForm}
             />
-            <Gender gender={gender} onChangeGender={onChangeGender} />
+            <Gender gender={gender} onChangeForm={onChangeForm} />
             <br />
-            <Khoi khoi={khoi} onChangeKhoi={onChangeKhoi} />
-            <Khoa khoa={khoa} onChangeKhoa={onChangeKhoa} />
+            <Khoi khoi={khoi} onChangeForm={onChangeForm} />
+            <Khoa khoa={khoa} onChangeForm={onChangeForm} />
         </React.Fragment>
     );
 };

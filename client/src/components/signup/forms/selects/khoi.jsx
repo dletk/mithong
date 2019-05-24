@@ -48,7 +48,7 @@ class Khoi extends React.Component {
     render() {
         const { open } = this.state;
 
-        const { classes, khoi, onChangeKhoi } = this.props;
+        const { classes, khoi, onChangeForm } = this.props;
 
         const khoiLabel = "Khối chuyên";
 
@@ -62,7 +62,7 @@ class Khoi extends React.Component {
                     onClose={this.handleClose}
                     onOpen={this.handleOpen}
                     value={khoi}
-                    onChange={onChangeKhoi}
+                    onChange={onChangeForm}
                     inputProps={{
                         name: "khoi",
                         id: "controlled-open-select"
