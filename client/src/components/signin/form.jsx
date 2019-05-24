@@ -30,13 +30,7 @@ class FormSignIn extends Component {
     };
 
     render() {
-        const {
-            classes,
-            username,
-            password,
-            onChangeUsername,
-            onChangePassword
-        } = this.props;
+        const { classes, username, password, onChangeForm } = this.props;
 
         const { type } = this.state;
 
@@ -49,11 +43,12 @@ class FormSignIn extends Component {
                     autoFocus
                     className={classes.margin}
                     margin="dense"
-                    id="username"
                     label={usernameLabel}
                     type="text"
                     fullWidth
                     InputProps={{
+                        name: "username",
+                        id: "username",
                         startAdornment: (
                             <InputAdornment position="start">
                                 <AccountCircle />
@@ -61,16 +56,17 @@ class FormSignIn extends Component {
                         )
                     }}
                     value={username}
-                    onChange={onChangeUsername}
+                    onChange={onChangeForm}
                 />
                 <div className="group">
                     <TextField
                         className={classes.margin}
                         margin="dense"
-                        id="password"
                         label={passwordLabel}
                         type={type}
                         InputProps={{
+                            name: "password",
+                            id: "password",
                             startAdornment: (
                                 <InputAdornment position="start">
                                     <Lock />
@@ -79,7 +75,7 @@ class FormSignIn extends Component {
                         }}
                         fullWidth
                         value={password}
-                        onChange={onChangePassword}
+                        onChange={onChangeForm}
                     />
                     <span
                         toogle="#password"
