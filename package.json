@@ -14,6 +14,7 @@
   "author": "big44every1",
   "license": "MIT",
   "dependencies": {
+    "@hapi/joi": "^15.0.3",
     "body-parser": "^1.19.0",
     "config": "^3.1.0",
     "debug": "^4.1.1",

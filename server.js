@@ -1,7 +1,5 @@
 // Import libraries and packages
 const express = require("express");
-// Packages to help with validation
-const Joi = require("joi");
 
 const config = require("config");
 

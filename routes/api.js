@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
-const Joi = require("joi");
+const Joi = require("@hapi/joi");
 
 
 // Debugger for api
