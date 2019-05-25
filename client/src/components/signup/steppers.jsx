@@ -30,46 +30,7 @@ const styles = theme => ({
 
 class Steppers extends Component {
     getStepContent = stepIndex => {
-        const {
-            // Check if user has clicked the next button in step
-            clickedNext,
-
-            // User's information
-            firstName,
-            lastName,
-            birthDay,
-            gender,
-            khoi,
-            khoa,
-            phoneNumber,
-            email,
-            address,
-            username,
-            password,
-            retypePassword,
-
-            // Validation for sign up form
-            firstNameValidated,
-            lastNameValidated,
-            emailValidated,
-            usernameValidated,
-            passwordValidated,
-            retypePasswordValidated,
-
-            // Function to validate
-            onChangeFirstName,
-            onChangeLastName,
-            onChangeBirthDay,
-            onChangeGender,
-            onChangeKhoi,
-            onChangeKhoa,
-            onChangePhoneNumber,
-            onChangeEmail,
-            onChangeAddress,
-            onChangeUsername,
-            onChangePassword,
-            onChangeRetypePassword
-        } = this.props;
+        const { account, onChangeForm, errors } = this.props;
 
         const [FIRST_STEP, SECOND_STEP, THIRD_STEP] = [0, 1, 2];
 
@@ -77,49 +38,25 @@ class Steppers extends Component {
             case FIRST_STEP:
                 return (
                     <FormGeneral
-                        clickedNext={clickedNext[FIRST_STEP]}
-                        firstName={firstName}
-                        lastName={lastName}
-                        birthDay={birthDay}
-                        gender={gender}
-                        khoi={khoi}
-                        khoa={khoa}
-                        firstNameValidated={firstNameValidated}
-                        lastNameValidated={lastNameValidated}
-                        onChangeFirstName={onChangeFirstName}
-                        onChangeLastName={onChangeLastName}
-                        onChangeBirthDay={onChangeBirthDay}
-                        onChangeGender={onChangeGender}
-                        onChangeKhoi={onChangeKhoi}
-                        onChangeKhoa={onChangeKhoa}
+                        account={account}
+                        onChangeForm={onChangeForm}
+                        errors={errors}
                     />
                 );
             case SECOND_STEP:
                 return (
                     <FormContact
-                        clickedNext={clickedNext[SECOND_STEP]}
-                        phoneNumber={phoneNumber}
-                        email={email}
-                        address={address}
-                        emailValidated={emailValidated}
-                        onChangePhoneNumber={onChangePhoneNumber}
-                        onChangeEmail={onChangeEmail}
-                        onChangeAddress={onChangeAddress}
+                        account={account}
+                        onChangeForm={onChangeForm}
+                        errors={errors}
                     />
                 );
             case THIRD_STEP:
                 return (
                     <FormAccount
-                        clickedNext={clickedNext[THIRD_STEP]}
-                        username={username}
-                        password={password}
-                        retypePassword={retypePassword}
-                        usernameValidated={usernameValidated}
-                        passwordValidated={passwordValidated}
-                        retypePasswordValidated={retypePasswordValidated}
-                        onChangeUsername={onChangeUsername}
-                        onChangePassword={onChangePassword}
-                        onChangeRetypePassword={onChangeRetypePassword}
+                        account={account}
+                        onChangeForm={onChangeForm}
+                        errors={errors}
                     />
                 );
             default:

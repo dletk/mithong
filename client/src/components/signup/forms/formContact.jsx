@@ -56,27 +56,9 @@ TextMaskCustom.propTypes = {
 };
 
 const FormContact = props => {
-    const {
-        classes,
+    const { classes, account, onChangeForm, errors } = props;
 
-        // Checked if user has clicked next button in this step
-        // The error messages only render after the first time
-        // click button next
-        clickedNext,
-
-        // User's information
-        phoneNumber,
-        email,
-        address,
-
-        // Validation for contact form
-        emailValidated,
-
-        // Function to validate
-        onChangePhoneNumber,
-        onChangeEmail,
-        onChangeAddress
-    } = props;
+    const { phoneNumber, email, address } = account;
 
     const phoneNumberLabel = "Số điện thoại";
     const emailLabel = "Email *";
@@ -85,12 +67,12 @@ const FormContact = props => {
     return (
         <React.Fragment>
             <FormControl className={classes.margin}>
-                <InputLabel htmlFor="formatted-text-mask-input input-with-icon-adornment">
+                <InputLabel htmlFor="formatted-text-mask-input">
                     {phoneNumberLabel}
                 </InputLabel>
                 <Input
                     value={phoneNumber}
-                    onChange={onChangePhoneNumber}
+                    onChange={onChangeForm}
                     inputProps={{
                         name: "phoneNumber",
                         id: "Telephone-number"
@@ -106,11 +88,12 @@ const FormContact = props => {
             <TextField
                 className={classes.margin}
                 margin="dense"
-                id="Email"
                 label={emailLabel}
                 type="email"
                 fullWidth
                 InputProps={{
+                    name: "email",
+                    id: "Email",
                     startAdornment: (
                         <InputAdornment position="start">
                             <Email />
@@ -118,21 +101,22 @@ const FormContact = props => {
                     )
                 }}
                 value={email}
-                onChange={onChangeEmail}
+                onChange={onChangeForm}
             />
-            {clickedNext && !emailValidated && (
+            {errors.email !== "" && (
                 <span className="error-message" align="center">
-                    <em>Địa chỉ email không hợp lệ</em>
+                    <em>{errors.email}</em>
                 </span>
             )}
             <TextField
                 className={classes.margin}
                 margin="dense"
-                id="Address"
                 label={addressLabel}
                 type="text"
                 fullWidth
                 InputProps={{
+                    name: "address",
+                    id: "Address",
                     startAdornment: (
                         <InputAdornment position="start">
                             <LocationOn />
@@ -140,7 +124,7 @@ const FormContact = props => {
                     )
                 }}
                 value={address}
-                onChange={onChangeAddress}
+                onChange={onChangeForm}
             />
         </React.Fragment>
     );

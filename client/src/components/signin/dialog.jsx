@@ -25,11 +25,11 @@ const styles = {
 class SignInDialog extends Component {
     state = {
         open: false,
-        submitFailed: false
+        error: ""
     };
 
     handleClickOpen = () => {
-        this.setState({ open: true, submitFailed: false });
+        this.setState({ open: true });
     };
 
     handleClose = () => {
@@ -40,23 +40,22 @@ class SignInDialog extends Component {
         // Prevent reloading page after submitting
         event.preventDefault();
 
-        const { formValidated } = this.props;
+        // Get error
+        const errors = this.props.validate();
+        this.setState({ errors });
 
-        if (formValidated) {
-            // Submit and reset all state
+        if (errors === "") {
+            // Submit data to database and reset all state
             this.props.onSubmit();
 
-            // Close dialog
+            // Close Dialog
             this.handleClose();
-        } else {
-            this.setState({
-                submitFailed: true
-            });
         }
     };
 
     render() {
         const {
+            // Styles
             classes,
             className,
 
@@ -64,14 +63,11 @@ class SignInDialog extends Component {
             username,
             password,
 
-            // Validation for sign in form
-            formValidated,
-
-            // Function to validate
-            onChangeUsername,
-            onChangePassword
+            // Function to change value of form
+            onChangeForm
         } = this.props;
-        const { open, submitFailed } = this.state;
+
+        const { open, errors } = this.state;
 
         return (
             <div>
@@ -99,15 +95,11 @@ class SignInDialog extends Component {
                             <FormSignIn
                                 username={username}
                                 password={password}
-                                onChangeUsername={onChangeUsername}
-                                onChangePassword={onChangePassword}
+                                onChangeForm={onChangeForm}
                             />
-                            {!formValidated && submitFailed && (
+                            {errors !== "" && (
                                 <span style={{ color: "red" }}>
-                                    <em>
-                                        Tên đăng nhập hoặc mật khẩu không chính
-                                        xác!
-                                    </em>
+                                    <em>{errors}</em>
                                 </span>
                             )}
                         </DialogContent>
