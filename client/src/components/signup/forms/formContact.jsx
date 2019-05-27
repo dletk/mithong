@@ -14,7 +14,7 @@ import "./style.css";
 
 const styles = theme => ({
     margin: {
-        margin: theme.spacing.unit
+        margin: theme.spacing(1)
     }
 });
 

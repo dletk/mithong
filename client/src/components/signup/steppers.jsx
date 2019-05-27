@@ -17,14 +17,14 @@ const styles = theme => ({
         width: "90%"
     },
     button: {
-        marginTop: theme.spacing.unit,
-        marginRight: theme.spacing.unit
+        marginTop: theme.spacing(1),
+        marginRight: theme.spacing(1)
     },
     actionsContainer: {
-        marginBottom: theme.spacing.unit * 2
+        marginBottom: theme.spacing(1) * 2
     },
     resetContainer: {
-        padding: theme.spacing.unit * 3
+        padding: theme.spacing(1) * 3
     }
 });
 
