@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
+import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -24,8 +24,7 @@ const styles = {
 
 class SignInDialog extends Component {
     state = {
-        open: false,
-        error: ""
+        open: false
     };
 
     handleClickOpen = () => {
@@ -40,17 +39,17 @@ class SignInDialog extends Component {
         // Prevent reloading page after submitting
         event.preventDefault();
 
-        // Get error
+        // Get errors
         const errors = this.props.validate();
-        this.setState({ errors });
 
-        if (errors === "") {
-            // Submit data to database and reset all state
-            this.props.onSubmit();
+        // If the form is not validated, it will not summitted
+        if (errors) return;
 
-            // Close Dialog
-            this.handleClose();
-        }
+        // Submit data to database and reset all state
+        this.props.onSubmit();
+
+        // Close Dialog
+        this.handleClose();
     };
 
     render() {
@@ -60,19 +59,19 @@ class SignInDialog extends Component {
             className,
 
             // User's account
-            username,
-            password,
+            account,
+            errors,
 
             // Function to change value of form
             onChangeForm
         } = this.props;
 
-        const { open, errors } = this.state;
+        const { open } = this.state;
 
         return (
             <div>
                 <Button
-                    className={classNames(classes.root, className)}
+                    className={clsx(classes.root, className)}
                     onClick={this.handleClickOpen}
                 >
                     Đăng nhập
@@ -93,15 +92,10 @@ class SignInDialog extends Component {
                                 Chúc bạn có trải nghiệm thật tuyệt vời~~
                             </DialogContentText>
                             <FormSignIn
-                                username={username}
-                                password={password}
+                                account={account}
+                                errors={errors}
                                 onChangeForm={onChangeForm}
                             />
-                            {errors !== "" && (
-                                <span style={{ color: "red" }}>
-                                    <em>{errors}</em>
-                                </span>
-                            )}
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.handleClose} color="primary">

@@ -1,5 +1,10 @@
 import React, { Component } from "react";
+import Joi from "joi-browser";
 import SignInDialog from "./dialog";
+
+const MIN_LENGTH_USERNAME = 3;
+const MAX_LENGTH_USERNAME = 25;
+const ASCII = /^[!-~]*$/;
 
 class SignIn extends Component {
     state = {
@@ -7,50 +12,67 @@ class SignIn extends Component {
         account: {
             username: "",
             password: ""
-        }
+        },
+        // Error messages
+        errors: {}
+    };
+
+    schema = {
+        // Username is required and must be at least 3 characters long,
+        // less than or equal to 255 characters long. And it must
+        // contain only ASCII characters
+        username: Joi.string()
+            .required()
+            .min(MIN_LENGTH_USERNAME)
+            .max(MAX_LENGTH_USERNAME)
+            .regex(ASCII)
+            .label("Username"),
+        // Password is required and must contain only ASCII characters.
+        // It must contain at least one one uppercase letter,
+        // one lowercase letter and one number
+        password: Joi.string()
+            .required()
+            .regex(ASCII)
+            .regex(/^[a-zA-Z0-9]$/)
+            .label("Password")
     };
 
     validate = () => {
-        const { account } = this.state;
-        const { username, password } = account;
+        const options = { abortEarly: false };
+        const { error } = Joi.validate(
+            this.state.account,
+            this.schema,
+            options
+        );
 
-        const ASCII = /^[!-~]*$/;
+        if (!error) return null;
 
-        /* ~~~ VALIDATION FOR USER NAME ~~~ */
-        const [MIN_LENGTH_USERNAME, MAX_LENGTH_USERNAME] = [3, 25];
+        const errors = {};
+        for (let item of error.details) errors[item.path[0]] = item.message;
 
-        let usernameValidated =
-            username.length >= MIN_LENGTH_USERNAME &&
-            username.length <= MAX_LENGTH_USERNAME;
+        this.setState({ errors: errors || {} });
 
-        // Username should contain only ASCII characters
-        usernameValidated &= ASCII.test(username);
+        return errors;
+    };
 
-        /* ~~~ VALIDATION FOR PASSWORD ~~~ */
-        const MIN_LENGTH_PASSWORD = 8;
+    validateProperty = ({ name, value }) => {
+        const obj = { [name]: value };
+        const schema = { [name]: this.schema[name] };
+        const { error } = Joi.validate(obj, schema);
 
-        let passwordValidated = password.length >= MIN_LENGTH_PASSWORD;
-
-        // Password must contain at least one uppercase letter,
-        // one lowercase letter and one number
-        passwordValidated &=
-            /[A-Z]/.test(password) &&
-            /[a-z]/.test(password) &&
-            /[0-9]/.test(password);
-
-        // Password should contain only ASCII characters
-        passwordValidated &= ASCII.test(password);
-
-        /* ~~~ RETURN ERROR MESSAGES FOR FORM SIGN IN ~~~ */
-        return usernameValidated && passwordValidated
-            ? ""
-            : "Tên đăng nhập hoặc mật khẩu không chính xác!";
+        return error ? error.details[0].message : null;
     };
 
     handleChangeForm = ({ currentTarget: input }) => {
+        const errors = { ...this.state.errors };
+        const errorMessage = this.validateProperty(input);
+
+        if (errorMessage) errors[input.name] = errorMessage;
+        else delete errors[input.name];
+
         const account = { ...this.state.account };
         account[input.name] = input.value;
-        this.setState({ account });
+        this.setState({ account, errors });
     };
 
     handleSubmit = () => {
@@ -67,13 +89,12 @@ class SignIn extends Component {
     };
 
     render() {
-        const { account } = this.state;
-        const { username, password } = account;
+        const { account, errors } = this.state;
 
         return (
             <SignInDialog
-                username={username}
-                password={password}
+                account={account}
+                errors={errors}
                 validate={this.validate}
                 onChangeForm={this.handleChangeForm}
                 onSubmit={this.handleSubmit}

@@ -30,35 +30,44 @@ class FormSignIn extends Component {
     };
 
     render() {
-        const { classes, username, password, onChangeForm } = this.props;
+        const { classes, account, errors, onChangeForm } = this.props;
 
         const { type } = this.state;
+
+        const { username, password } = account;
 
         const usernameLabel = "Tên đăng nhập";
         const passwordLabel = "Mật khẩu";
 
         return (
             <React.Fragment>
-                <TextField
-                    autoFocus
-                    className={classes.margin}
-                    margin="dense"
-                    label={usernameLabel}
-                    type="text"
-                    fullWidth
-                    InputProps={{
-                        name: "username",
-                        id: "username",
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        )
-                    }}
-                    value={username}
-                    onChange={onChangeForm}
-                />
-                <div className="group">
+                <div className="form-group">
+                    <TextField
+                        autoFocus
+                        className={classes.margin}
+                        margin="dense"
+                        label={usernameLabel}
+                        type="text"
+                        fullWidth
+                        InputProps={{
+                            name: "username",
+                            id: "username",
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <AccountCircle />
+                                </InputAdornment>
+                            )
+                        }}
+                        value={username}
+                        onChange={onChangeForm}
+                    />
+                    {errors.username && (
+                        <div className="alert alert-danger">
+                            {errors.username}
+                        </div>
+                    )}
+                </div>
+                <div className="form-group">
                     <TextField
                         className={classes.margin}
                         margin="dense"
@@ -84,6 +93,11 @@ class FormSignIn extends Component {
                     >
                         {type === "text" ? <Visibility /> : <VisibilityOff />}
                     </span>
+                    {errors.password && (
+                        <div className="alert alert-danger">
+                            {errors.password}
+                        </div>
+                    )}
                 </div>
             </React.Fragment>
         );
