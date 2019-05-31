@@ -25,16 +25,39 @@ class SignIn extends Component {
             .required()
             .min(MIN_LENGTH_USERNAME)
             .max(MAX_LENGTH_USERNAME)
-            .regex(ASCII)
-            .label("Username"),
+            .regex(ASCII),
         // Password is required and must contain only ASCII characters.
         // It must contain at least one one uppercase letter,
         // one lowercase letter and one number
         password: Joi.string()
             .required()
             .regex(ASCII)
-            .regex(/^[a-zA-Z0-9]$/)
-            .label("Password")
+            .regex(/[A-Z]/)
+            .regex(/[a-z]/)
+            .regex(/[0-9]/)
+    };
+
+    getErrorMessage = error => {
+        const { type, context } = error;
+        const { label, limit, pattern } = context;
+
+        const newLabel = label === "username" ? "Tên đăng nhập" : "Mật khẩu";
+
+        switch (type) {
+            case "any.empty":
+                return `${newLabel} không được để trống`;
+            case "string.min":
+                return `${newLabel} phải chứa ít nhất ${limit} ký tự`;
+            case "string.max":
+                return `${newLabel} chỉ được chứa không quá ${limit} ký tự`;
+            case "string.regex.base":
+                if (String(pattern) === String(ASCII))
+                    return `${newLabel} chỉ được chứa các ký tự trong bảng mã ASCII và không chứa dấu cách`;
+                else
+                    return `${newLabel} phải chứa ít nhất một trong các ký tự: ${pattern}`;
+            default:
+                return "Don't have any error";
+        }
     };
 
     validate = () => {
@@ -48,7 +71,19 @@ class SignIn extends Component {
         if (!error) return null;
 
         const errors = {};
-        for (let item of error.details) errors[item.path[0]] = item.message;
+        let preErr = {
+            path: ["Null"]
+        };
+        for (let err of error.details) {
+            // Get first error message of each field
+            if (err.path[0] === preErr.path[0]) {
+                preErr = err;
+                continue;
+            }
+
+            errors[err.path[0]] = this.getErrorMessage(err);
+            preErr = err;
+        }
 
         this.setState({ errors: errors || {} });
 
@@ -60,7 +95,7 @@ class SignIn extends Component {
         const schema = { [name]: this.schema[name] };
         const { error } = Joi.validate(obj, schema);
 
-        return error ? error.details[0].message : null;
+        return error ? this.getErrorMessage(error.details[0]) : null;
     };
 
     handleChangeForm = ({ currentTarget: input }) => {
