@@ -1,5 +1,13 @@
-.error-message {
-    color: red;
+#firstname {
+    width: 400px;
+}
+
+#lastname {
+    width: 400px;
+}
+
+#email {
+    width: 400px;
 }
 
 #username {
@@ -18,8 +26,8 @@
 
 .field-icon {
     float: right;
-    margin-left: -30px;
-    margin-top: 30px;
+    margin-left: -50px;
+    margin-top: -35px;
     position: relative;
     z-index: 2;
     cursor: pointer;

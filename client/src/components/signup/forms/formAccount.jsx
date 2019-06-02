@@ -54,42 +54,45 @@ class FormAccount extends Component {
 
         return (
             <React.Fragment>
-                <TextField
-                    autoFocus
-                    className={classes.margin}
-                    margin="dense"
-                    label={usernameLabel}
-                    type="text"
-                    // fullWidth
-                    InputProps={{
-                        name: "username",
-                        id: "username",
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        )
-                    }}
-                    value={username}
-                    onChange={onChangeForm}
-                />
-                <small>
-                    Tên đăng nhập phải có ít nhất 3 kí tự, nhiều nhất 25 kí tự
-                    và không chứa dấu cách
-                </small>
-                {errors.username !== "" && (
-                    <span className="error-message" align="center">
-                        <br />
-                        <em>{errors.username}</em>
-                    </span>
-                )}
-                <div className="group">
+                <div className="form-group">
+                    <TextField
+                        autoFocus
+                        className={classes.margin}
+                        margin="dense"
+                        label={usernameLabel}
+                        type="text"
+                        fullWidth
+                        InputProps={{
+                            name: "username",
+                            id: "username",
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <AccountCircle />
+                                </InputAdornment>
+                            )
+                        }}
+                        value={username}
+                        onChange={onChangeForm}
+                    />
+                    {errors.username && (
+                        <div className="alert alert-danger">
+                            {errors.username}
+                        </div>
+                    )}
+                    <small>
+                        <em>
+                            Tên đăng nhập phải có ít nhất 3 kí tự, nhiều nhất 25
+                            kí tự và không chứa dấu cách
+                        </em>
+                    </small>
+                </div>
+                <div className="form-group">
                     <TextField
                         className={classes.margin}
                         margin="dense"
                         label={passwordLabel}
                         type={typeOfPassword}
-                        // fullWidth
+                        fullWidth
                         InputProps={{
                             name: "password",
                             id: "password",
@@ -113,24 +116,25 @@ class FormAccount extends Component {
                             <VisibilityOff />
                         )}
                     </span>
+                    {errors.password && (
+                        <div className="alert alert-danger">
+                            {errors.password}
+                        </div>
+                    )}
+                    <small>
+                        <em>
+                            Mật khẩu phải chứa ít nhất một chữ hoa, một chữ
+                            thường và một số
+                        </em>
+                    </small>
                 </div>
-                <small>
-                    Mật khẩu phải chứa ít nhất một chữ hoa, một chữ thường và
-                    một số
-                </small>
-                {errors.password !== "" && (
-                    <span className="error-message" align="center">
-                        <br />
-                        <em>{errors.password}</em>
-                    </span>
-                )}
-                <div className="group">
+                <div className="form-group">
                     <TextField
                         className={classes.margin}
                         margin="dense"
                         label={retypePasswordLabel}
                         type={typeOfRetypePassword}
-                        // fullWidth
+                        fullWidth
                         InputProps={{
                             name: "retypePassword",
                             id: "retype-password",
@@ -154,12 +158,12 @@ class FormAccount extends Component {
                             <VisibilityOff />
                         )}
                     </span>
+                    {errors.retypePassword && (
+                        <div className="alert alert-danger">
+                            {errors.retypePassword}
+                        </div>
+                    )}
                 </div>
-                {errors.retypePassword !== "" && (
-                    <span className="error-message" align="center">
-                        <em>{errors.retypePassword}</em>
-                    </span>
-                )}
             </React.Fragment>
         );
     }

@@ -75,7 +75,7 @@ const FormContact = props => {
                     onChange={onChangeForm}
                     inputProps={{
                         name: "phoneNumber",
-                        id: "Telephone-number"
+                        id: "phone-number"
                     }}
                     inputComponent={TextMaskCustom}
                     startAdornment={
@@ -85,29 +85,29 @@ const FormContact = props => {
                     }
                 />
             </FormControl>
-            <TextField
-                className={classes.margin}
-                margin="dense"
-                label={emailLabel}
-                type="email"
-                fullWidth
-                InputProps={{
-                    name: "email",
-                    id: "Email",
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <Email />
-                        </InputAdornment>
-                    )
-                }}
-                value={email}
-                onChange={onChangeForm}
-            />
-            {errors.email !== "" && (
-                <span className="error-message" align="center">
-                    <em>{errors.email}</em>
-                </span>
-            )}
+            <div className="form-group">
+                <TextField
+                    className={classes.margin}
+                    margin="dense"
+                    label={emailLabel}
+                    type="email"
+                    fullWidth
+                    InputProps={{
+                        name: "email",
+                        id: "email",
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Email />
+                            </InputAdornment>
+                        )
+                    }}
+                    value={email}
+                    onChange={onChangeForm}
+                />
+                {errors.email && (
+                    <div className="alert alert-danger">{errors.email}</div>
+                )}
+            </div>
             <TextField
                 className={classes.margin}
                 margin="dense"
@@ -116,7 +116,7 @@ const FormContact = props => {
                 fullWidth
                 InputProps={{
                     name: "address",
-                    id: "Address",
+                    id: "address",
                     startAdornment: (
                         <InputAdornment position="start">
                             <LocationOn />

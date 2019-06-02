@@ -26,53 +26,53 @@ const FormGeneral = props => {
 
     return (
         <React.Fragment>
-            <TextField
-                autoFocus
-                className={classes.margin}
-                margin="dense"
-                label={firstnameLabel}
-                type="text"
-                fullWidth
-                InputProps={{
-                    name: "firstname",
-                    id: "First-name",
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <PermIdentity />
-                        </InputAdornment>
-                    )
-                }}
-                value={firstname}
-                onChange={onChangeForm}
-            />
-            {errors.firstname !== "" && (
-                <span className="error-message" align="center">
-                    <em>{errors.firstname}</em>
-                </span>
-            )}
-            <TextField
-                className={classes.margin}
-                margin="dense"
-                label={lastnameLabel}
-                type="text"
-                fullWidth
-                InputProps={{
-                    name: "lastname",
-                    id: "Last-name",
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <PermIdentity />
-                        </InputAdornment>
-                    )
-                }}
-                value={lastname}
-                onChange={onChangeForm}
-            />
-            {errors.lastname !== "" && (
-                <span className="error-message" align="center">
-                    <em>{errors.lastname}</em>
-                </span>
-            )}
+            <div className="form-group">
+                <TextField
+                    autoFocus
+                    className={classes.margin}
+                    margin="dense"
+                    label={firstnameLabel}
+                    type="text"
+                    fullWidth
+                    InputProps={{
+                        name: "firstname",
+                        id: "firstname",
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <PermIdentity />
+                            </InputAdornment>
+                        )
+                    }}
+                    value={firstname}
+                    onChange={onChangeForm}
+                />
+                {errors.firstname && (
+                    <div className="alert alert-danger">{errors.firstname}</div>
+                )}
+            </div>
+            <div className="form-group">
+                <TextField
+                    className={classes.margin}
+                    margin="dense"
+                    label={lastnameLabel}
+                    type="text"
+                    fullWidth
+                    InputProps={{
+                        name: "lastname",
+                        id: "lastname",
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <PermIdentity />
+                            </InputAdornment>
+                        )
+                    }}
+                    value={lastname}
+                    onChange={onChangeForm}
+                />
+                {errors.lastname && (
+                    <div className="alert alert-danger">{errors.lastname}</div>
+                )}
+            </div>
             <TextField
                 className={classes.margin}
                 margin="dense"

@@ -30,17 +30,7 @@ class SignUpDialog extends Component {
         open: false,
         steps: STEPS,
         activeStep: FIRST_STEP,
-        finished: false,
-
-        // Error message
-        errors: {
-            firstname: "",
-            lastname: "",
-            email: "",
-            username: "",
-            password: "",
-            retypePassword: ""
-        }
+        finished: false
     };
 
     handleClickOpen = () => {
@@ -54,35 +44,24 @@ class SignUpDialog extends Component {
     handleClickNext = () => {
         const { activeStep } = this.state;
 
-        const errors = this.props.validate();
-        this.setState({ errors });
+        const errors = this.props.validate(activeStep);
 
         // If at least one required field is not correct,
         // cannot go to next step
         const stepValidated = [
             // First step
-            errors.firstname === "" && errors.lastname === "",
+            !errors.firstname && !errors.lastname,
             // Second step
-            errors.email === "",
+            !errors.email,
             // Third step
-            errors.username === "" &&
-                errors.password === "" &&
-                errors.retypePassword === ""
+            !errors.username && !errors.password && !errors.retypePassword
         ];
 
         if (!stepValidated[activeStep]) return;
 
         this.setState({
             activeStep: activeStep + 1,
-            finished: activeStep === LAST_STEP,
-            errors: {
-                firstname: "",
-                lastname: "",
-                email: "",
-                username: "",
-                password: "",
-                retypePassword: ""
-            }
+            finished: activeStep === LAST_STEP
         });
     };
 
@@ -108,9 +87,15 @@ class SignUpDialog extends Component {
     };
 
     render() {
-        const { open, steps, activeStep, finished, errors } = this.state;
+        const { open, steps, activeStep, finished } = this.state;
 
-        const { classes, className, account, onChangeForm } = this.props;
+        const {
+            classes,
+            className,
+            account,
+            errors,
+            onChangeForm
+        } = this.props;
 
         return (
             <div>
