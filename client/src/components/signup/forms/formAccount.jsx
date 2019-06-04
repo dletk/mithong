@@ -8,6 +8,7 @@ import Lock from "@material-ui/icons/Lock";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import "./style.css";
+import PasswordStrengthMeter from "./passwordStrengthMeter";
 
 const styles = theme => ({
     margin: {
@@ -86,7 +87,7 @@ class FormAccount extends Component {
                         </em>
                     </small>
                 </div>
-                <div className="form-group">
+                <div className="form-group meter">
                     <TextField
                         className={classes.margin}
                         margin="dense"
@@ -127,6 +128,7 @@ class FormAccount extends Component {
                             thường và một số
                         </em>
                     </small>
+                    <PasswordStrengthMeter password={password} />
                 </div>
                 <div className="form-group">
                     <TextField

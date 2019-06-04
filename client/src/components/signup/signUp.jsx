@@ -193,6 +193,11 @@ class SignUp extends Component {
         if (errorMessage) errors[name] = errorMessage;
         else delete errors[name];
 
+        // If user change field password/retypePassword,
+        // delete error message of field retypePassword
+        if (["password", "retypePassword"].includes(name))
+            delete errors["retypePassword"];
+
         this.setState({ account, errors });
     };
 
