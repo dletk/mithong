@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import SignInDialog from "./dialog";
+import { SubmitSignIn } from "../../api";
 
 const MIN_LENGTH_USERNAME = 3;
 const MAX_LENGTH_USERNAME = 25;
@@ -112,7 +113,7 @@ class SignIn extends Component {
 
     handleSubmit = () => {
         // Submit data to database
-        console.log("Submitted!");
+        SubmitSignIn();
 
         //Reset all states
         this.setState({

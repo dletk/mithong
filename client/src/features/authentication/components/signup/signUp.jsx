@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import SignUpDialog from "./dialog";
+import { SubmitSignUp } from "../../api";
 
 // Get date
 const TODAY = new Date();
@@ -204,7 +205,7 @@ class SignUp extends Component {
     // Handle Submit Function
     handleSubmit = () => {
         // Submit data to database
-        console.log("Submitted!");
+        SubmitSignUp();
 
         // Reset all state
         this.setState({

@@ -52,7 +52,7 @@ const PasswordStrengthMeter = ({ password }) => {
             <label className="password-strength-meter-label">
                 {password && (
                     <>
-                        <strong>Password strength:</strong>{" "}
+                        <strong>Độ mạnh:</strong>{" "}
                         {createPasswordLabel(testedResult)}
                     </>
                 )}
