@@ -210,7 +210,8 @@ class SignUp extends Component {
             firstname,
             lastname,
             email,
-            password
+            password,
+            dateOfBirth
         } = this.state.account;
 
         const newAccount = {
@@ -218,7 +219,8 @@ class SignUp extends Component {
             lastname: lastname,
             firstname: firstname,
             email: email,
-            password: password
+            password: password,
+            dateOfBirth: dateOfBirth
         };
 
         SubmitSignUp(newAccount);

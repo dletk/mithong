@@ -28,6 +28,7 @@ const FormGeneral = props => {
         <React.Fragment>
             <div className="form-group">
                 <TextField
+                    autoFocus
                     className={classes.margin}
                     margin="dense"
                     label={lastnameLabel}
@@ -51,7 +52,6 @@ const FormGeneral = props => {
             </div>
             <div className="form-group">
                 <TextField
-                    autoFocus
                     className={classes.margin}
                     margin="dense"
                     label={firstnameLabel}
