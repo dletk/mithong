@@ -64,6 +64,8 @@ const user_validation_schema = {
 /**
  * Method to validate whether the request body contains valid user
  * @param {request body} userData The data of the user in the request body
+ * 
+ * Return an object contain error object if any condition failed
  */
 function validateNewUserRequest(userData) {
     return Joi.validate(userData, user_validation_schema);
