@@ -28,6 +28,29 @@ const FormGeneral = props => {
         <React.Fragment>
             <div className="form-group">
                 <TextField
+                    className={classes.margin}
+                    margin="dense"
+                    label={lastnameLabel}
+                    type="text"
+                    fullWidth
+                    InputProps={{
+                        name: "lastname",
+                        id: "lastname",
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <PermIdentity />
+                            </InputAdornment>
+                        )
+                    }}
+                    value={lastname}
+                    onChange={onChangeForm}
+                />
+                {errors.lastname && (
+                    <div className="alert alert-danger">{errors.lastname}</div>
+                )}
+            </div>
+            <div className="form-group">
+                <TextField
                     autoFocus
                     className={classes.margin}
                     margin="dense"
@@ -48,29 +71,6 @@ const FormGeneral = props => {
                 />
                 {errors.firstname && (
                     <div className="alert alert-danger">{errors.firstname}</div>
-                )}
-            </div>
-            <div className="form-group">
-                <TextField
-                    className={classes.margin}
-                    margin="dense"
-                    label={lastnameLabel}
-                    type="text"
-                    fullWidth
-                    InputProps={{
-                        name: "lastname",
-                        id: "lastname",
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <PermIdentity />
-                            </InputAdornment>
-                        )
-                    }}
-                    value={lastname}
-                    onChange={onChangeForm}
-                />
-                {errors.lastname && (
-                    <div className="alert alert-danger">{errors.lastname}</div>
                 )}
             </div>
             <TextField

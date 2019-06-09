@@ -3,6 +3,8 @@ const express = require("express");
 
 const config = require("config");
 
+const cors = require("cors");
+
 // Package to help with security
 const helmet = require("helmet");
 
@@ -10,6 +12,7 @@ const helmet = require("helmet");
 const app = express();
 
 // Load in all the middlewares needed
+app.use(cors());
 app.use(helmet());
 
 // Module to print out request details for debugging and development environemt

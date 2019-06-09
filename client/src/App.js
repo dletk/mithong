@@ -7,6 +7,7 @@ import Messenger from "./features/messenger/messenger";
 import Home from "./features/home/home";
 import Contests from "./features/contests/contests";
 import Tutorials from "./features/tutorials/tutorials";
+import NotFound from "./features/notfound/notFound";
 
 class App extends Component {
     render() {
@@ -20,8 +21,10 @@ class App extends Component {
                         <Route path="/messenger" component={Messenger} />
                         <Route path="/contests" component={Contests} />
                         <Route path="/tutorials" component={Tutorials} />
+                        <Route path="/not-found" component={NotFound} />
                         <Route path="/" exact component={Home} />
                         <Redirect from="/home" to="/" />
+                        <Redirect to="/not-found" />
                     </Switch>
                 </div>
             </React.Fragment>

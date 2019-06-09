@@ -205,7 +205,23 @@ class SignUp extends Component {
     // Handle Submit Function
     handleSubmit = () => {
         // Submit data to database
-        SubmitSignUp();
+        const {
+            username,
+            firstname,
+            lastname,
+            email,
+            password
+        } = this.state.account;
+
+        const newAccount = {
+            username: username,
+            lastname: lastname,
+            firstname: firstname,
+            email: email,
+            password: password
+        };
+
+        SubmitSignUp(newAccount);
 
         // Reset all state
         this.setState({
