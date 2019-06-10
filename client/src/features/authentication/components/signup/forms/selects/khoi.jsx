@@ -19,19 +19,6 @@ const styles = theme => ({
     }
 });
 
-// Create an array of 9 elements corresponding to 9 subjects
-const [
-    MATH,
-    PHYSICS,
-    CHEMISTRY,
-    ENGLISH,
-    LITERATURES,
-    BIOLOGY,
-    IT,
-    HISTORY,
-    GEOGRAPHY
-] = Array.apply(null, { length: 9 }).map(Number.call, Number);
-
 class Khoi extends React.Component {
     state = {
         open: false
@@ -73,31 +60,31 @@ class Khoi extends React.Component {
                         </InputAdornment>
                     }
                 >
-                    <MenuItem value={MATH}>
+                    <MenuItem value={"toan"}>
                         <em>Toán</em>
                     </MenuItem>
-                    <MenuItem value={PHYSICS}>
+                    <MenuItem value={"ly"}>
                         <em>Lý</em>
                     </MenuItem>
-                    <MenuItem value={CHEMISTRY}>
+                    <MenuItem value={"hoa"}>
                         <em>Hóa</em>
                     </MenuItem>
-                    <MenuItem value={ENGLISH}>
+                    <MenuItem value={"anh"}>
                         <em>Anh</em>
                     </MenuItem>
-                    <MenuItem value={LITERATURES}>
+                    <MenuItem value={"van"}>
                         <em>Văn</em>
                     </MenuItem>
-                    <MenuItem value={BIOLOGY}>
+                    <MenuItem value={"sinh"}>
                         <em>Sinh</em>
                     </MenuItem>
-                    <MenuItem value={IT}>
+                    <MenuItem value={"tin"}>
                         <em>Tin</em>
                     </MenuItem>
-                    <MenuItem value={HISTORY}>
+                    <MenuItem value={"su"}>
                         <em>Sử</em>
                     </MenuItem>
-                    <MenuItem value={GEOGRAPHY}>
+                    <MenuItem value={"dia"}>
                         <em>Địa</em>
                     </MenuItem>
                 </Select>

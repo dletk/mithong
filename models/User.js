@@ -2,10 +2,8 @@
 const debug_model_user = require("debug")("model:user");
 
 // User model
-// Create an array of 9 elements corresponding to 9 subjects
-const MAJORS_LIST = Array.apply(null, { length: 9 }).map(Number.call, Number);
-// Create an array of 3 elements corresponding to [male, female, other]
-const GENDERS_LIST = [0, 1, 2];
+const MAJORS_LIST = ["toan", "ly", "hoa", "anh", "van", "sinh", "tin",  "su", "dia"];
+const GENDERS_LIST = ["male", "female", "other"];
 
 
 // constants
@@ -38,12 +36,12 @@ const userSchema = new Schema({
         required: true
     },
     gender: {
-        type: Number,
+        type: String,
         require: true,
-        // enum: {
-        //     values: GENDERS_LIST,
-        //     message: "Custom message"
-        // }
+        enum: {
+            values: GENDERS_LIST,
+            message: "Gender value not in allowed list"
+        }
     },
     email: {
         type: String,
@@ -60,12 +58,15 @@ const userSchema = new Schema({
     },
     // NBK related information
     major: {
-        type: Number,
-        enum: MAJORS_LIST
+        type: String,
+        enum: {
+            values: MAJORS_LIST,
+            message: "Major value not in allowed list"
+        }
     },
     khoa: {
         type: Number,
-        min: 0
+        min: [0, "0: Khoa 1 - is the oldest"]
     },
     joinedDate: {
         type: Date,

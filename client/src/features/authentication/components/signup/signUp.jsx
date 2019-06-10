@@ -10,8 +10,8 @@ const MM = String(TODAY.getMonth() + 1).padStart(2, "0"); // January is 0!
 const YYYY = String(TODAY.getFullYear());
 const DEFAULT_DATE_OF_BIRTH = YYYY + "-" + MM + "-" + DD;
 
-const DEFAULT_GENDER = 0; // 0 -> Male (Hoang Hai's gender)
-const DEFAULT_KHOI = 0; // 0 -> Math (Hoang Hai's khoi)
+const DEFAULT_GENDER = "male"; // male -> Male (Hoang Hai's gender)
+const DEFAULT_KHOI = "toan"; // toan -> Math (Hoang Hai's khoi)
 const DEFAULT_KHOA = 13; // 13 -> Khoa 14 (Hoang Hai's khoa)
 const DEFAULT_PHONE_NUMBER = "(+84)   -   -    ";
 
@@ -231,7 +231,7 @@ class SignUp extends Component {
             gender: gender,
             phoneNumber: phoneNumber,
             major: khoi,
-            khoa: khoa
+            khoa: khoa + 1 
         };
 
         if (address !== "") newAccount.address = address
