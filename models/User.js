@@ -2,6 +2,8 @@
 const debug_model_user = require("debug")("model:user");
 
 // User model
+const MAJORS_LIST = ["toan", "ly", "hoa", "van", "anh", "sinh", "su", "dia", "tin"];
+
 
 // constants
 const PASSWORD_SALT_LENGTH = 32;
@@ -32,15 +34,32 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    gender: {
+        type: String,
+        require: true,
+        enum: ["male", "female", "other"]
+    },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     dateOfBirth: Date,
+    phoneNumber: String,
+    address: String,
     // Reference: https://stackoverflow.com/questions/29780733/store-an-image-in-mongodb-using-node-js-express-and-mongoose
     profilePic: {
         data: Buffer,
         contentType: String
+    },
+    // NBK related information
+    major: {
+        type: String,
+        enum: MAJORS_LIST
+    },
+    khoa: {
+        type: Number,
+        min: [1, "Khoa 1 is the oldest"]
     },
     joinedDate: {
         type: Date,
@@ -85,6 +104,7 @@ userSchema.methods.validatePassword = function (password) {
     debug_model_user("Correct hash:\n" + correctHash);
     return (givenHash == correctHash);
 };
+
 
 
 // ========================= MODEL STATIC METHODS =================================
