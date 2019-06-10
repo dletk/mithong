@@ -9,6 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Steppers from "./steppers";
+import SuccessSnackbar from "./snackbar/snackbar";
 
 const styles = {
     root: {
@@ -30,7 +31,8 @@ class SignUpDialog extends Component {
         open: false,
         steps: STEPS,
         activeStep: FIRST_STEP,
-        finished: false
+        finished: false,
+        openSnackbar: false
     };
 
     handleClickOpen = () => {
@@ -75,6 +77,16 @@ class SignUpDialog extends Component {
         this.setState({ activeStep: FIRST_STEP });
     };
 
+    // Here is handle function for closing snackbar
+    handleCloseSnackbar = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+
+        this.setState({ openSnackbar: false });
+    };
+
+    // Submit Data, dialog and display success snackbar
     handleSubmit = event => {
         // Prevent reloading page after submitting
         event.preventDefault();
@@ -84,10 +96,13 @@ class SignUpDialog extends Component {
 
         // Close dialog
         this.handleClose();
+
+        // Display success snackbar
+        this.setState({ openSnackbar: true });
     };
 
     render() {
-        const { open, steps, activeStep, finished } = this.state;
+        const { open, steps, activeStep, finished, openSnackbar } = this.state;
 
         const {
             classes,
@@ -149,6 +164,10 @@ class SignUpDialog extends Component {
                         </DialogActions>
                     </form>
                 </Dialog>
+                <SuccessSnackbar
+                    open={openSnackbar}
+                    onClose={this.handleCloseSnackbar}
+                />
             </div>
         );
     }
