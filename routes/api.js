@@ -50,15 +50,29 @@ router.post(["/newUser"], (req, res) => {
 
 // ================== HELPER METHODS ===========================
 // Schema validation for request
+const { MAJORS_LIST, GENDERS_LIST } = require("../models/User");
+
+debug_api("MAJOR LIST: " + MAJORS_LIST);
+debug_api("GENDER LIST: " + GENDERS_LIST);
+
 const user_validation_schema = {
     // Basic validation to make sure all required field presented
-    username: Joi.string().min(3).max(25),
+    username: Joi.string().min(3).max(25).required(),
     lastname: Joi.string().required(),
     firstname: Joi.string().required(),
+    gender: Joi.string().required(),
     email: Joi.string().required(),
     password: Joi.string().required(),
+    // Optional data
     dateOfBirth: Joi.date().optional(),
-    profilePic: Joi.optional()
+    profilePic: Joi.optional(),
+    gender: Joi.optional().valid(GENDERS_LIST)
+            .error(new Error("Your gender value is not in the allowed values list: " + GENDERS_LIST)),
+    address: Joi.string().optional(),
+    phoneNumber: Joi.string().optional(),
+    major: Joi.optional().valid(MAJORS_LIST)
+            .error(new Error("Your major value is not in the allowed values list: " + MAJORS_LIST)),
+    khoa: Joi.number().optional().min(1),
 }
 
 /**

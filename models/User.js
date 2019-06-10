@@ -3,6 +3,7 @@ const debug_model_user = require("debug")("model:user");
 
 // User model
 const MAJORS_LIST = ["toan", "ly", "hoa", "van", "anh", "sinh", "su", "dia", "tin"];
+const GENDERS_LIST = ["male", "female", "other"];
 
 
 // constants
@@ -37,7 +38,10 @@ const userSchema = new Schema({
     gender: {
         type: String,
         require: true,
-        enum: ["male", "female", "other"]
+        // enum: {
+        //     values: GENDERS_LIST,
+        //     message: "Custom message"
+        // }
     },
     email: {
         type: String,
@@ -141,3 +145,7 @@ userSchema.statics.validatePassword = function (user, inputPassword, validationH
 
 mongoose.model("User", userSchema);
 
+
+// EXPORT
+module.exports.MAJORS_LIST = MAJORS_LIST;
+module.exports.GENDERS_LIST = GENDERS_LIST;
