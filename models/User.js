@@ -66,7 +66,7 @@ const userSchema = new Schema({
     },
     khoa: {
         type: Number,
-        min: [0, "0: Khoa 1 - is the oldest"]
+        min: [1, "Khoa 1 is the oldest"]
     },
     joinedDate: {
         type: Date,
