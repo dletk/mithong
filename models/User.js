@@ -2,8 +2,10 @@
 const debug_model_user = require("debug")("model:user");
 
 // User model
-const MAJORS_LIST = ["toan", "ly", "hoa", "van", "anh", "sinh", "su", "dia", "tin"];
-const GENDERS_LIST = ["male", "female", "other"];
+// Create an array of 9 elements corresponding to 9 subjects
+const MAJORS_LIST = Array.apply(null, { length: 9 }).map(Number.call, Number);
+// Create an array of 3 elements corresponding to [male, female, other]
+const GENDERS_LIST = [0, 1, 2];
 
 
 // constants
@@ -36,7 +38,7 @@ const userSchema = new Schema({
         required: true
     },
     gender: {
-        type: String,
+        type: Number,
         require: true,
         // enum: {
         //     values: GENDERS_LIST,
@@ -58,12 +60,12 @@ const userSchema = new Schema({
     },
     // NBK related information
     major: {
-        type: String,
+        type: Number,
         enum: MAJORS_LIST
     },
     khoa: {
         type: Number,
-        min: [1, "Khoa 1 is the oldest"]
+        min: 0
     },
     joinedDate: {
         type: Date,

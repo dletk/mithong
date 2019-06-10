@@ -71,7 +71,7 @@ const user_validation_schema = {
     phoneNumber: Joi.string().optional(),
     major: Joi.optional().valid(MAJORS_LIST)
             .error(new Error("Your major value is not in the allowed values list: " + MAJORS_LIST)),
-    khoa: Joi.number().optional().min(1),
+    khoa: Joi.number().min(0).optional(),
 }
 
 /**

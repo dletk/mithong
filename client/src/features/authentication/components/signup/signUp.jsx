@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import SignUpDialog from "./dialog";
-import { SubmitSignUp } from "../../api";
+import { submitSignUp } from "../../api";
 
 // Get date
 const TODAY = new Date();
@@ -207,23 +207,36 @@ class SignUp extends Component {
         // Submit data to database
         const {
             username,
-            firstname,
             lastname,
+            firstname,
             email,
             password,
-            dateOfBirth
+            // Optional data
+            dateOfBirth,
+            gender,
+            address,
+            phoneNumber,
+            khoi,
+            khoa
         } = this.state.account;
 
-        const newAccount = {
+        let newAccount = {
             username: username,
             lastname: lastname,
             firstname: firstname,
             email: email,
             password: password,
-            dateOfBirth: dateOfBirth
+            // Optional data
+            dateOfBirth: dateOfBirth,
+            gender: gender,
+            phoneNumber: phoneNumber,
+            major: khoi,
+            khoa: khoa
         };
 
-        SubmitSignUp(newAccount);
+        if (address !== "") newAccount.address = address
+
+        submitSignUp(newAccount);
 
         // Reset all state
         this.setState({
