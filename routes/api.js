@@ -60,7 +60,6 @@ const user_validation_schema = {
     username: Joi.string().min(3).max(25).required(),
     lastname: Joi.string().required(),
     firstname: Joi.string().required(),
-    gender: Joi.string().required(),
     email: Joi.string().required(),
     password: Joi.string().required(),
     // Optional data
