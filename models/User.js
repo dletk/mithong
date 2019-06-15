@@ -1,5 +1,7 @@
 // Load helper modules
 const debug_model_user = require("debug")("model:user");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 
 // User model
 const MAJORS_LIST = ["toan", "ly", "hoa", "anh", "van", "sinh", "tin",  "su", "dia"];
@@ -11,6 +13,8 @@ const PASSWORD_SALT_LENGTH = 32;
 const PBKDF2_KEYLEN = 512;
 const PBKDF2_ITERATIONS = 10000;
 const PBKDF2_DIGEST = 'sha512';
+
+const JWT_SECRET_KEY = String(config.get("jwt_secret_key"));
 
 // Load mongoose 
 const mongoose = require("mongoose");
@@ -112,6 +116,31 @@ userSchema.methods.validatePassword = function (password) {
     return (givenHash == correctHash);
 };
 
+// Method to generate the signature for JWT for this user to do authentication
+userSchema.methods.generateJWT = function () {
+    const today = new Date();
+    const expirationDate = new Date();
+    // The expiration date of this JWT is 30 days from today
+    expirationDate.setDate(today.getDate() + 30);
+
+    // Sign the JWT using our secret key 
+    return jwt.sign({
+        username: this.username,
+        id: this._id,
+        // getTime is in milliseconds, so we convert it into seconds
+        exp: parseInt(expirationDate.getTime() / 1000, 10)
+    }, JWT_SECRET_KEY);
+}
+
+// Method to generate the JWT for the current user
+userSchema.methods.toAuthJSON = function () {
+    return {
+        username: this.username,
+        id: this._id,
+        // The signature
+        token: this.generateJWT()
+    }
+}
 
 
 // ========================= MODEL STATIC METHODS =================================

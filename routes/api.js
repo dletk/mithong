@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
 const Joi = require("@hapi/joi");
+const passport = require("passport");
+
+const jwtAuth = require("../middleware/jwt-auth");
 
 
 // Debugger for api
@@ -8,7 +11,10 @@ const debug_api = require("debug")("api");
 
 // Load the model and database
 require("../models/User");
+require("../config/passport");
+
 const User = mongoose.model("User");
+
 
 // Connect the database
 mongoose.connect("mongodb://localhost/mithongTestDatabase", { useNewUrlParser: true, useCreateIndex: true})
@@ -20,7 +26,8 @@ mongoose.connect("mongodb://localhost/mithongTestDatabase", { useNewUrlParser: t
 
 
 // ========================= ROUTES ==============================
-router.post(["/newUser"], (req, res) => {
+// Route to create a new user, everyone can access
+router.post(["/newUser"], jwtAuth.optional, (req, res) => {
     // Validate the request
     const { error } = validateNewUserRequest(req.body);
     
@@ -36,17 +43,69 @@ router.post(["/newUser"], (req, res) => {
         // Save user
         user.save()
             .then(() => {
-                // TODO: Create the authentication JSON with JWT for this user and send back
+                // Create the authentication JSON with JWT for this user and send back
                 console.log(user);
-                res.send("Success!!!");
+                res.json(user.toAuthJSON());
             })
             .catch((error) => {
                 res.status(400).send(error.message);
             });
     }
-})
+});
 
+// Route to login, everyone can access
+router.post(["/login"], jwtAuth.optional, (req, res, next) => {
+    const { body: { username, password } } = req;
+    
+    // Only proces if username and password are both submitted
+    if (!username || !password) {
+        res.status(400).json(
+            {
+                errors: {
+                    message: "No username or password provided"
+                }
+            }
+        );
+    } else {
+        // Process the authentication using passportJS
+        // Reference: http://www.passportjs.org/docs/authenticate/
+        passport.authenticate('local', {session: false}, function(err, user, info) {
+            // If authentication give an error
+            if (err) {
+                return next(err);
+            }
+            // If there is no user returned, which mean
+            if (!user) {
+                return res.status(400).json(info);
+            }
 
+            // Normal authentication done
+            return res.json({ user: user.toAuthJSON()});
+        })(req, res, next);
+    }
+
+});
+
+//GET current route (required, only authenticated users have access)
+router.get('/current', jwtAuth.required, (req, res, next) => {
+    // Get the id of the current user in the payload of reqest AFTER processed by jwtAuth middleware
+    // It can only reached this part if authentication is successful (the JWT is valid)
+    const { payload: { id } } = req;
+
+    // Find the user ID in database
+    return User.findById(id)
+        .then((user) => {
+            if (!user) {
+                return res.status(400).json({
+                    errors: {
+                        message: "No user found"
+                    }
+                });
+            }
+            // User found, return to request
+            return res.json({ user: user.toAuthJSON() });
+        });
+});
 
 // ================== HELPER METHODS ===========================
 // Schema validation for request

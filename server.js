@@ -18,7 +18,7 @@ app.use(helmet());
 // Module to print out request details for debugging and development environemt
 const morgan = require("morgan");
 if (process.env.NODE_ENV == "development") {
-    app.use(morgan("tiny"));
+    app.use(morgan("dev"));
 }
 
 // Using body-parser
@@ -36,3 +36,4 @@ app.use("/api", require("./routes/api"));
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log(`Listening on PORT ${PORT}.`));
+
