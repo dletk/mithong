@@ -1,0 +1,74 @@
+#firstname {
+    width: 400px;
+}
+
+#lastname {
+    width: 400px;
+}
+
+#email {
+    width: 400px;
+}
+
+#username {
+    width: 400px;
+}
+
+#password {
+    display: block;
+    width: 400px;
+}
+
+#retype-password {
+    display: block;
+    width: 400px;
+}
+
+.field-icon {
+    float: right;
+    margin-left: -50px;
+    margin-top: -35px;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+/* PASSWORD STRENGTH METER STYLES */
+
+.password-strength-meter {
+    text-align: left;
+}
+
+.password-strength-meter-progress {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 250px;
+    height: 8px;
+}
+
+.password-strength-meter-progress::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 3px;
+}
+
+.password-strength-meter-label {
+    font-size: 14px;
+}
+
+.password-strength-meter-progress::-webkit-progress-value {
+    border-radius: 2px;
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+.strength-Weak::-webkit-progress-value {
+    background-color: #f25f5c;
+}
+.strength-Fair::-webkit-progress-value {
+    background-color: #ffe066;
+}
+.strength-Good::-webkit-progress-value {
+    background-color: #247ba0;
+}
+.strength-Strong::-webkit-progress-value {
+    background-color: #0bec16;
+}

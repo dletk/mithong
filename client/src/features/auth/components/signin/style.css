@@ -1,0 +1,16 @@
+#username {
+    width: 400px;
+}
+
+#password {
+    display: block;
+    width: 400px;
+}
+
+.field-icon {
+    float: right;
+    margin-top: -35px;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}

@@ -133,7 +133,7 @@ const PrimarySearchAppBar = () => {
                         <MailIcon />
                     </Badge>
                 </IconButton>
-                <p>Messages</p>
+                <Link to="/messenger">Tin nhắn</Link>
             </MenuItem>
             <MenuItem>
                 <IconButton
@@ -144,16 +144,24 @@ const PrimarySearchAppBar = () => {
                         <NotificationsIcon />
                     </Badge>
                 </IconButton>
-                <p>Notifications</p>
+                <p>Thông báo</p>
             </MenuItem>
             <MenuItem>
-                <IconButton
-                    aria-label="Account of current user"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <Link to="/profile">Linkrofile</Link>
+                <Link to="/profile">
+                    <IconButton
+                        aria-label="Account of current user"
+                        color="inherit"
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                    <p>Trang cá nhân</p>
+                </Link>
+            </MenuItem>
+            <MenuItem>
+                <Link to="/auth/sign-in">Đăng nhập</Link>
+            </MenuItem>
+            <MenuItem>
+                <Link to="/auth/sign-up">Đăng ký</Link>
             </MenuItem>
         </Menu>
     );
@@ -216,6 +224,18 @@ const PrimarySearchAppBar = () => {
                                 </div>
                             </Link>
                         </IconButton>
+                        <MenuItem>
+                            <Link to="/auth/sign-in">
+                                <span style={{ color: "white" }}>
+                                    Đăng nhập
+                                </span>
+                            </Link>
+                        </MenuItem>
+                        <MenuItem>
+                            <Link to="/auth/sign-up">
+                                <span style={{ color: "white" }}>Đăng ký</span>
+                            </Link>
+                        </MenuItem>
                     </div>
                     <div className={classes.sectionMobile}>
                         <IconButton
